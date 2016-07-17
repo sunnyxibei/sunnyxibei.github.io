@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Android,JNI," />
 
 
 
@@ -84,15 +84,16 @@
 
 
 
-<meta name="description" content="Android 进阶中……">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Android Baby">
-<meta property="og:url" content="https://sunnyxibei.github.io/archives/index.html">
+<meta name="description" content="刚接触JNI，对C语言认识比较浅，所以对fork()函数纠结了一整天。查阅了一些C的资料，了解了fork的用法，恍然大悟。写一个日志出来，给同样JNI入门的哥们谋个福利。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对JNI中使用fork创建守护进程的认识">
+<meta property="og:url" content="https://sunnyxibei.github.io/2015/06/26/对JNI中使用fork创建守护进程的认识/index.html">
 <meta property="og:site_name" content="Android Baby">
-<meta property="og:description" content="Android 进阶中……">
+<meta property="og:description" content="刚接触JNI，对C语言认识比较浅，所以对fork()函数纠结了一整天。查阅了一些C的资料，了解了fork的用法，恍然大悟。写一个日志出来，给同样JNI入门的哥们谋个福利。">
+<meta property="og:updated_time" content="2016-06-28T14:34:32.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android Baby">
-<meta name="twitter:description" content="Android 进阶中……">
+<meta name="twitter:title" content="对JNI中使用fork创建守护进程的认识">
+<meta name="twitter:description" content="刚接触JNI，对C语言认识比较浅，所以对fork()函数纠结了一整天。查阅了一些C的资料，了解了fork的用法，恍然大悟。写一个日志出来，给同样JNI入门的哥们谋个福利。">
 
 
 
@@ -113,9 +114,9 @@
 
 
 
-  <link rel="canonical" href="https://sunnyxibei.github.io/archives/"/>
+  <link rel="canonical" href="https://sunnyxibei.github.io/2015/06/26/对JNI中使用fork创建守护进程的认识/"/>
 
-  <title> 归档 | Android Baby </title>
+  <title> 对JNI中使用fork创建守护进程的认识 | Android Baby </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -136,7 +137,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  page-archive  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -257,230 +258,226 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      嗯..! 目前共计 10 篇日志。 继续努力。
-    </span>
-
+  <div id="posts" class="posts-expand">
     
-
-      
-      
-      
-
-      
-        
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2016">2016</h2>
-        </div>
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/05/25/守夜人军团誓言/" itemprop="url">
-              
-                <span itemprop="name">守夜人军团誓言</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-05-25T11:04:46+08:00"
-              content="2016-05-25" >
-          05-25
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/03/21/Retrofit-入门（二）/" itemprop="url">
-              
-                <span itemprop="name">Retrofit 入门（二）</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-03-21T23:47:30+08:00"
-              content="2016-03-21" >
-          03-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/03/14/Retrofit-入门（一）/" itemprop="url">
-              
-                <span itemprop="name">Retrofit 入门（一）</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-03-14T19:55:09+08:00"
-              content="2016-03-14" >
-          03-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-        
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2015">2015</h2>
-        </div>
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2015/11/03/沉浸式App/" itemprop="url">
-              
-                <span itemprop="name">沉浸式App</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-11-03T13:42:50+08:00"
-              content="2015-11-03" >
-          11-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2015/10/23/手动发送SD卡就绪广播/" itemprop="url">
-              
-                <span itemprop="name">手动发送SD卡就绪广播</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-10-23T07:37:46+08:00"
-              content="2015-10-23" >
-          10-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-  </section>
 
   
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                对JNI中使用fork创建守护进程的认识
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-06-26T07:32:36+08:00" content="2015-06-26">
+              2015-06-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android进阶/" itemprop="url" rel="index">
+                    <span itemprop="name">Android进阶</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/06/26/对JNI中使用fork创建守护进程的认识/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/26/对JNI中使用fork创建守护进程的认识/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
 
 
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li>刚接触JNI，对C语言认识比较浅，所以对fork()函数纠结了一整天。查阅了一些C的资料，了解了fork的用法，恍然大悟。写一个日志出来，给同样JNI入门的哥们谋个福利。<a id="more"></a></li>
+<li>先说一下我的Demo<blockquote>
+<p>需求：通过JNI实现守护进程，在主进程被杀死或者卸载的时候，守护线程通过execlp()执行指定的操作。</p>
+</blockquote>
+</li>
+</ul>
+<p>##fork 基础知识</p>
+<ul>
+<li>fork（）函数通过系统调用创建一个与原来进程几乎完全相同的进程，也就是两个进程可以做完全相同的事，但如果初始参数或者传入的变量不同，两个进程也可以做不同的事。<ul>
+<li>一个进程调用fork（）函数后，系统先给新的进程分配资源，例如存储数据和代码的空间。然后把原来的进程的所有值都复制到新的新进程中，只有少数值与原来的进程的值不同。相当于克隆了一个自己（子进程拥有fork之前的数据 ， 但是不会执行fork 之前的函数，fork 之后，子进程和父进程同时执行后面的代码）。</li>
+<li>fork()函数特性，子进程执行时返回值是0，父进程执行时返回值是子进程的pid。</li>
+</ul>
+</li>
+</ul>
+<h2 id="我的Demo"><a href="#我的Demo" class="headerlink" title="我的Demo"></a>我的Demo</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment">//了解了fork知识后，我们会知道，其实这里返回值pid已经是两个pid，</span></span><br><span class="line">    <span class="comment">//在子进程和父进程各自执行都会返回一个pid</span></span><br><span class="line"> <span class="comment">//so，根据fork函数的特性，可以根据pid的返回值来判断进程是父进程 or 子进程（守护进程），</span></span><br><span class="line"> <span class="comment">//如果是守护进程，就在守护进程中实现自己的需求。</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">int</span> pid = fork();</span><br><span class="line">FILE* f;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (pid &gt; <span class="number">0</span>) &#123;</span><br><span class="line">	<span class="comment">//大于0的时候 创建成功</span></span><br><span class="line">	LOGD(<span class="string">"pid = %d"</span>, pid);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (pid == <span class="number">0</span>) &#123;</span><br><span class="line">	<span class="comment">//当前进程是子进程</span></span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">		sleep(<span class="number">1</span>);</span><br><span class="line">		LOGD(<span class="string">"pid = %d"</span>, pid);</span><br><span class="line">		<span class="comment">//获取 父进程ID</span></span><br><span class="line">		<span class="keyword">int</span> ppid = getppid();</span><br><span class="line">		<span class="comment">//判断父进程ID 如果当前子线程的父进程ID =1 说明 要么卸载  要么被杀掉了</span></span><br><span class="line">		<span class="keyword">if</span> (ppid == <span class="number">1</span>) &#123;</span><br><span class="line">		<span class="comment">//被卸载了</span></span><br><span class="line">			f = fopen(<span class="string">"/data/data/com.example.fork"</span>, <span class="string">"r"</span>);</span><br><span class="line">			<span class="keyword">if</span> (f == NULL) &#123;</span><br><span class="line">				execlp(xxx);</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="comment">//被杀掉了 </span></span><br><span class="line">				execlp(xxx);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">	<span class="comment">//小于0 创建失败</span></span><br><span class="line">	LOGD(<span class="string">"pid = %d"</span>, pid);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat-reward-image.png" alt="sunnyxibei WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay-reward-image.jpg" alt="sunnyxibei Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag">#Android</a>
+          
+            <a href="/tags/JNI/" rel="tag">#JNI</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/05/22/Android常用缩略词汇/" rel="next" title="Android 常用缩略词汇">
+                <i class="fa fa-chevron-left"></i> Android 常用缩略词汇
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/10/23/手动发送SD卡就绪广播/" rel="prev" title="手动发送SD卡就绪广播">
+                手动发送SD卡就绪广播 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2015/06/26/对JNI中使用fork创建守护进程的认识/"
+     data-title="对JNI中使用fork创建守护进程的认识"
+     data-content=""
+     data-url="https://sunnyxibei.github.io/2015/06/26/对JNI中使用fork创建守护进程的认识/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
 
 
           </div>
           
 
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/06/26/对JNI中使用fork创建守护进程的认识/"
+           data-title="对JNI中使用fork创建守护进程的认识" data-url="https://sunnyxibei.github.io/2015/06/26/对JNI中使用fork创建守护进程的认识/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -500,8 +497,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/head.jpg"
@@ -551,6 +557,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#我的Demo"><span class="nav-number">1.</span> <span class="nav-text">我的Demo</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -654,11 +671,9 @@
 
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
 
 
   

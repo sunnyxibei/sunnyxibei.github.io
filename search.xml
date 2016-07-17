@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+    
+    <entry>
+      <title><![CDATA[守夜人军团誓言]]></title>
+      <url>https://sunnyxibei.github.io/2016/05/25/%E5%AE%88%E5%A4%9C%E4%BA%BA%E5%86%9B%E5%9B%A2%E8%AA%93%E8%A8%80/</url>
+      <content type="html"><![CDATA[<p> “长夜将至，我从今开始守望，至死方休。我将不娶妻，不封地，不生子。我将不戴宝冠，不争荣宠。我将尽忠职守，生死于斯。我是黑暗中的利剑，长城上的守卫，抵御寒冷的烈焰，破晓时分的光线，唤醒眠者的号角，守护王国的坚盾。我将生命与荣耀献给守夜人，今夜如此，夜夜皆然。”<br><a id="more"></a></p>
+<p>　　“Night gathers, and now my watch begins. It shall not end until my death. I shall take no wife, hold no lands, father no children. I shall wear no crowns and win no glory. I shall live and die at my post. I am the sword in the darkness. I am the watcher on the walls. I am the fire that burns against the cold, the light that brings the dawn, the horn that wakes the sleepers, the shield that guards the realms of men. I pledge my life and honor to the Night’s Watch, for this night and all the nights to come.”</p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Retrofit 入门（二）]]></title>
+      <url>https://sunnyxibei.github.io/2016/03/21/Retrofit-%E5%85%A5%E9%97%A8%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+      <content type="html"><![CDATA[<p>Retrofit 入门（一）里面，简单地介绍了Get方式请求。下面说一下Post方式请求<br>Post方式请求网络，关键的地方在于请求体内容的封装<br><a id="more"></a><br>首先我们假装用post方式请求一个ip，抓到请求消息头和请求体，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">　POST/logsys/home/uploadIspeedLog!doDefault.html HTTP/1.1 </span><br><span class="line"></span><br><span class="line">　　Accept: text/plain, */* </span><br><span class="line">　　Accept-Language: zh-cn </span><br><span class="line">　　Host: 192.168.24.56</span><br><span class="line">　　Content-Type:multipart/form-data;boundary=-----------------------------7db372eb000e2</span><br><span class="line">　　User-Agent: WinHttpClient </span><br><span class="line">　　Content-Length: 3693</span><br><span class="line">　　Connection: Keep-Alive</span><br><span class="line"></span><br><span class="line">　　-------------------------------7db372eb000e2</span><br><span class="line"></span><br><span class="line">　　Content-Disposition: form-data; name=&quot;file&quot;; filename=&quot;kn.jpg&quot;</span><br><span class="line"></span><br><span class="line">　　Content-Type: image/jpeg</span><br><span class="line"></span><br><span class="line">　　(此处省略jpeg文件二进制数据...）</span><br><span class="line"></span><br><span class="line">　　-------------------------------7db372eb000e2--</span><br></pre></td></tr></table></figure>
+<p>Retrofit @Path注解封装的数据，对应的是请求体中的name=”file”; filename=”kn.jpg”这一个代码片段，觉得好奇葩。</p>
+<p>所以应该这么写<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TestService</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Multipart</span></span><br><span class="line">    <span class="meta">@POST</span>(<span class="string">"upload"</span>)</span><br><span class="line">    <span class="function">Call&lt;UploadResult&gt; <span class="title">upload</span><span class="params">(@Part(<span class="string">"file\"; filename=\"a.jpg"</span>)</span> RequestBody file)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Multipart</span></span><br><span class="line">    <span class="meta">@POST</span>(<span class="string">"uploadMulti"</span>)</span><br><span class="line">    <span class="function">Call&lt;UploadResult&gt; <span class="title">uploadMulti</span><span class="params">(@PartMap Map&lt;String, RequestBody&gt; bodyMap)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Retrofit 入门（一）]]></title>
+      <url>https://sunnyxibei.github.io/2016/03/14/Retrofit-%E5%85%A5%E9%97%A8%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+      <content type="html"><![CDATA[<h1 id="Retrofit-简介"><a href="#Retrofit-简介" class="headerlink" title="Retrofit 简介"></a>Retrofit 简介</h1><p> Square公司开发的Android平台开源的，类型安全的Http框架<br> 底层基于OkHttp，使用OkHttp进行请求,是对OkHttp的封装<br> 将java API的定义转换为interface形式<br> 使用annotation描述http请求<br> 支持配置json解析器<br><a id="more"></a></p>
+<h1 id="Retrofit-使用详解"><a href="#Retrofit-使用详解" class="headerlink" title="Retrofit 使用详解"></a>Retrofit 使用详解</h1><ol>
+<li><p>添加依赖</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">compile &apos;com.squareup.retrofit2:retrofit:2.1.0&apos;</span><br><span class="line">compile &apos;com.google.code.gson:gson:2.7&apos;</span><br><span class="line">compile &apos;com.squareup.retrofit2:converter-gson:2.0.2&apos;</span><br></pre></td></tr></table></figure>
+<p>这里 convert-gson包是提供Json转换工厂类的，后面会说到。</p>
+</li>
+<li><p>定义业务逻辑接口<br>首先使用一个简单的Get请求举个栗子<br>简介里写过，Retrofit将java API的定义转换为interface形式；这样的好处是将请求网路的具体任务从业务逻辑中剥离出来，让我们可以专心地实现业务逻辑。</p>
+ <figure class="highlight java"><figcaption><span>public interface TestApi &#123;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">    <span class="meta">@GET</span>(<span class="string">"test"</span>)<span class="comment">//指定该方法要请求的url</span></span><br><span class="line">    <span class="function">Call&lt;Stu&gt; <span class="title">getOrder</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Retrofit底层是通过动态代理的方式，生成我们定义的接口的子类对象，并通过反射调用我们定义的方法。</p>
+</li>
+<li><p>创建Retrofit实例对象</p>
+  <figure class="highlight java"><figcaption><span>//创建Retrofit实例对象</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Retrofit retrofit = <span class="keyword">new</span> Retrofit.Builder()</span><br><span class="line">       <span class="comment">//设置服务器主机,注意，服务器主机应该以/结束，</span></span><br><span class="line">       .baseUrl(<span class="string">"http://192.168.2.103:8080/apitest/"</span>)</span><br><span class="line">	<span class="comment">//配置Gson作为json的解析器</span></span><br><span class="line">       .addConverterFactory(GsonConverterFactory.create())</span><br><span class="line">       .build();</span><br></pre></td></tr></table></figure>
+<p>GsonConverterFactory，上面说过，这里要使用该工具类，必须单独依赖converter-gson包。</p>
+</li>
+<li><p>创建接口的实例对象</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TestApi testApi = retrofit.create(TestApi.class);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取业务请求对象（Call类型）</p>
+   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//调用业务方法，得到要执行的业务请求对象</span></span><br><span class="line">	Call&lt;Stu&gt; order = testApi.getOrder();</span><br><span class="line"></span><br><span class="line">	<span class="comment">//执行请求对象</span></span><br><span class="line">	order.enqueue(<span class="keyword">new</span> Callback&lt;Stu&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResponse</span><span class="params">(Call&lt;Stu&gt; call, Response&lt;Stu&gt; response)</span> </span>&#123;</span><br><span class="line">        Stu stu = response.body();</span><br><span class="line">        text.setText(stu.toString());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFailure</span><span class="params">(Call&lt;Stu&gt; call, Throwable t)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">	&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[沉浸式App]]></title>
+      <url>https://sunnyxibei.github.io/2015/11/03/%E6%B2%89%E6%B5%B8%E5%BC%8FApp/</url>
+      <content type="html"><![CDATA[<p>非全屏幕:Javacode着色状态栏<br>代码位置：com.example.systembar.CodeActivity<br>①　先写版本判断<br>②　直接调用setStatusBarColor</p>
+<a id="more"></a>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">    <span class="comment">//去掉titlebar-全屏模式</span></span><br><span class="line">    supportRequestWindowFeature(Window.FEATURE_NO_TITLE);</span><br><span class="line">    <span class="comment">//细节supportRequestWindowFeature一定要在setContentView之前设置</span></span><br><span class="line">    setContentView(R.layout.activity_main);</span><br><span class="line">    Activity activity = <span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">int</span> statusColor = Color.parseColor(<span class="string">"#008000"</span>);</span><br><span class="line">    <span class="comment">//针对版本5.x以上的即LOLLIPOP以上的</span></span><br><span class="line">    <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.LOLLIPOP) &#123;</span><br><span class="line">        Window window = activity.getWindow();</span><br><span class="line">        <span class="comment">//设置透明状态栏,这样才能让 ContentView 向上</span></span><br><span class="line">        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);</span><br><span class="line">        <span class="comment">//需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色</span></span><br><span class="line">        <span class="comment">// window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);</span></span><br><span class="line">        <span class="comment">//设置状态栏颜色</span></span><br><span class="line">        <span class="comment">// window.setStatusBarColor(statusColor);</span></span><br><span class="line">        ViewGroup mContentView = (ViewGroup) activity.findViewById(Window.ID_ANDROID_CONTENT);</span><br><span class="line">        View mChildView = mContentView.getChildAt(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span> (mChildView != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">//注意不是设置 ContentView 的 FitsSystemWindows, 而是设置 ContentView 的第一个子 View .</span></span><br><span class="line">            <span class="comment">// 使其不为系统 View 预留空间.不预留空间的话 状态栏就会覆盖布局顶部</span></span><br><span class="line">            ViewCompat.setFitsSystemWindows(mChildView, <span class="keyword">false</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[手动发送SD卡就绪广播]]></title>
+      <url>https://sunnyxibei.github.io/2015/10/23/%E6%89%8B%E5%8A%A8%E5%8F%91%E9%80%81SD%E5%8D%A1%E5%B0%B1%E7%BB%AA%E5%B9%BF%E6%92%AD/</url>
+      <content type="html"><![CDATA[<p> 通常在我们的项目中，可能会遇到写本地文件，最常用的就是图片文件，在这之后需要通知系统重新扫描SD卡<a id="more"></a>，<br>在Android4.4之前也就是以发送一个Action为<br><code>“Intent.ACTION_MEDIA_MOUNTED”</code><br>的广播通知执行扫描。如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">this.sendBroadcast(new </span><br><span class="line">Intent(Intent.ACTION_MEDIA_MOUNTED,Uri.parse(&quot;file://&quot; +Environment.getExternalStorageDirectory())));</span><br></pre></td></tr></table></figure>
+<p>但在Android4.4中，则会抛出以下异常：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">W/ActivityManager(  498):</span><br><span class="line"> Permission Denial: not allowed to send broadcast </span><br><span class="line"> android.intent.action.MEDIA_MOUNTED from pid=2269, uid=20016</span><br></pre></td></tr></table></figure>
+<p>那是因为Android4.4中限制了系统应用才有权限使用广播通知系统扫描SD卡。<br>解决方式：<br>使用MediaScannerConnection执行具体文件或文件夹进行扫描。（博主亲测可用，不能用博主直播吃康家沟变态辣鸡翅！）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MediaScannerConnection.scanFile(this, new String[]</span><br><span class="line">&#123;Environment.getExternalStoragePublicDirectory(Environment</span><br><span class="line">.DIRECTORY_DCIM).getPath() + &quot;/&quot; + fileName&#125;, null, null);</span><br></pre></td></tr></table></figure>
+<p>MediaScannerConnection provides a way for applications to pass a newly created or downloaded media file to the media scanner service. The media scanner service will read metadata from the file and add the file to the media content provider. The MediaScannerConnectionClient provides an interface for the media scanner service to return the Uri for a newly scanned file to the client of the MediaScannerConnection class.</p>
+<p>好吧，其实我用的是另外的一个方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = new Intent();</span><br><span class="line">intent.setAction(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);</span><br><span class="line">//这个Action其实是用来刷新指定目录的</span><br><span class="line">//但是这里我偷个懒，Uri设置为sdcard目录</span><br><span class="line">intent.setData(Uri.fromFile(Environment.getExternalStorageDirectory()));</span><br><span class="line"></span><br><span class="line">sendBroadcast(intent);</span><br></pre></td></tr></table></figure>
+<p>以上两种方式，解决的思路是一样的，—》刷新指定的文件目录。<br>但是，明显第一种更官方更专业更有逼格，也更节省资源。<br>是的，第二种方式，伪装成系统去发送欺骗广播，想一想都醉了。。。<br>涨知识了吧，骚年！</p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[对JNI中使用fork创建守护进程的认识]]></title>
+      <url>https://sunnyxibei.github.io/2015/06/26/%E5%AF%B9JNI%E4%B8%AD%E4%BD%BF%E7%94%A8fork%E5%88%9B%E5%BB%BA%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%AE%A4%E8%AF%86/</url>
+      <content type="html"><![CDATA[<ul>
+<li>刚接触JNI，对C语言认识比较浅，所以对fork()函数纠结了一整天。查阅了一些C的资料，了解了fork的用法，恍然大悟。写一个日志出来，给同样JNI入门的哥们谋个福利。<a id="more"></a></li>
+<li>先说一下我的Demo<blockquote>
+<p>需求：通过JNI实现守护进程，在主进程被杀死或者卸载的时候，守护线程通过execlp()执行指定的操作。</p>
+</blockquote>
+</li>
+</ul>
+<p>##fork 基础知识</p>
+<ul>
+<li>fork（）函数通过系统调用创建一个与原来进程几乎完全相同的进程，也就是两个进程可以做完全相同的事，但如果初始参数或者传入的变量不同，两个进程也可以做不同的事。<ul>
+<li>一个进程调用fork（）函数后，系统先给新的进程分配资源，例如存储数据和代码的空间。然后把原来的进程的所有值都复制到新的新进程中，只有少数值与原来的进程的值不同。相当于克隆了一个自己（子进程拥有fork之前的数据 ， 但是不会执行fork 之前的函数，fork 之后，子进程和父进程同时执行后面的代码）。</li>
+<li>fork()函数特性，子进程执行时返回值是0，父进程执行时返回值是子进程的pid。</li>
+</ul>
+</li>
+</ul>
+<h2 id="我的Demo"><a href="#我的Demo" class="headerlink" title="我的Demo"></a>我的Demo</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment">//了解了fork知识后，我们会知道，其实这里返回值pid已经是两个pid，</span></span><br><span class="line">    <span class="comment">//在子进程和父进程各自执行都会返回一个pid</span></span><br><span class="line"> <span class="comment">//so，根据fork函数的特性，可以根据pid的返回值来判断进程是父进程 or 子进程（守护进程），</span></span><br><span class="line"> <span class="comment">//如果是守护进程，就在守护进程中实现自己的需求。</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">int</span> pid = fork();</span><br><span class="line">FILE* f;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (pid &gt; <span class="number">0</span>) &#123;</span><br><span class="line">	<span class="comment">//大于0的时候 创建成功</span></span><br><span class="line">	LOGD(<span class="string">"pid = %d"</span>, pid);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (pid == <span class="number">0</span>) &#123;</span><br><span class="line">	<span class="comment">//当前进程是子进程</span></span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">		sleep(<span class="number">1</span>);</span><br><span class="line">		LOGD(<span class="string">"pid = %d"</span>, pid);</span><br><span class="line">		<span class="comment">//获取 父进程ID</span></span><br><span class="line">		<span class="keyword">int</span> ppid = getppid();</span><br><span class="line">		<span class="comment">//判断父进程ID 如果当前子线程的父进程ID =1 说明 要么卸载  要么被杀掉了</span></span><br><span class="line">		<span class="keyword">if</span> (ppid == <span class="number">1</span>) &#123;</span><br><span class="line">		<span class="comment">//被卸载了</span></span><br><span class="line">			f = fopen(<span class="string">"/data/data/com.example.fork"</span>, <span class="string">"r"</span>);</span><br><span class="line">			<span class="keyword">if</span> (f == NULL) &#123;</span><br><span class="line">				execlp(xxx);</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="comment">//被杀掉了 </span></span><br><span class="line">				execlp(xxx);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">	<span class="comment">//小于0 创建失败</span></span><br><span class="line">	LOGD(<span class="string">"pid = %d"</span>, pid);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Android 常用缩略词汇]]></title>
+      <url>https://sunnyxibei.github.io/2015/05/22/Android%E5%B8%B8%E7%94%A8%E7%BC%A9%E7%95%A5%E8%AF%8D%E6%B1%87/</url>
+      <content type="html"><![CDATA[<ul>
+<li>REST : Representational State Transfer，表述性状态传递</li>
+<li>RxJava: Reactive Extensions for the JVM 响应式扩展</li>
+<li>NDK: Native Develop Kits 本地开发工具包</li>
+<li>JNI: Java Native Interface Java本地接口</li>
+<li><a id="more"></a></li>
+<li>https<br>（Hyper Text Transfer Protocol over Secure Socket Layer），是以安全为目标的HTTP通道，简单讲是HTTP的安全版</li>
+<li>SSL<br>SSL(Secure Sockets Layer 安全套接层),及其继任者传输层安全（Transport Layer Security，TLS）是为网络通信提供安全及数据完整性的一种安全协议。TLS与SSL在传输层对网络连接进行加密。</li>
+<li>ssh Secure Shell  安全外壳协议</li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Android Baby 面试之旅（一） 面向对象的认识]]></title>
+      <url>https://sunnyxibei.github.io/2015/03/23/Android-Baby-%E9%9D%A2%E8%AF%95%E4%B9%8B%E6%97%85%EF%BC%88%E4%B8%80%EF%BC%89-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%AE%A4%E8%AF%86/</url>
+      <content type="html"><![CDATA[<p>笔试题刷完之后，终于等到了面试<br>老师问：谈谈你对面向对象的认识？<br>虎躯一紧，这么宽泛的问题，那么到底该怎么谈谈呢。<a id="more"></a></p>
+<p>思考了一下，我决定从三个方面回答，什么是面向对象，面向对象的特征是什么，面向对象的原则是什么。</p>
+<h2 id="什么是面向对象编程思想？"><a href="#什么是面向对象编程思想？" class="headerlink" title="什么是面向对象编程思想？"></a>什么是面向对象编程思想？</h2><p>就像算法是对问题和解决问题的抽象一样，Java中的对象，是对事物的一种抽象。而这里的事物，可以分为两种事物，一种是现实生活中或者业务中产生的实体，我们通常把他们成为Bean，根据事物的特点抽象出属性，根据事物的行为抽象出相应的方法。第二种，就是通常我们所说的万物皆对象，一个抽象的业务，我们可以把它的属性和行为抽取出来，抽象成一个类，属性就是业务处理的具体事务，方法就是执行业务的具体流程。</p>
+<p>进一步，老师会提问：那么，类和对象是什么关系<br>刚才已经说过，类是对事务的抽象，而对象就是具体的事务，举个栗子，ISO9000质量管理体系，就是管理者在经营企业的过程中抽象出来的一个标准管理体系，把管理中的对象抽象成概念，把管理流程抽象成规则，这个体系就相当于面向对象中的类的概念，注意，是概念，抽象的东西。而对象，是类的一个实例，还是拿我们刚才的栗子，现在90后创业很火，我们去创业了，也想拥有ISO9000管理体系的认证，肿么办呢，我们就要按照ISO9000质量管理体系的标准，去搞一个公司，这个过程，就是把抽象的体系，实例化成一个真实的企业。类和对象，就和上面的栗子一个道理，类是对事物和业务的抽象，而对象是类的实例化。</p>
+<h2 id="面向对象的三大特征？"><a href="#面向对象的三大特征？" class="headerlink" title="面向对象的三大特征？"></a>面向对象的三大特征？</h2><p>类和对象我们已经谈过了，你再说一说面向对象的三大特征吧<br>面向对象编程的三大特征（和函数式编程相比），封装，继承和多态</p>
+<ul>
+<li><p>封装<br>是指隐藏对象的属性和实现细节，仅外提供公共访问方式。<br>所谓封装，也就是把客观事物封装成抽象的类，并且类可以把自己的数据和方法只让可信的类或者对象操作，对不可信的进行信息隐藏。封装是面向对象的特征之一，是对象和类概念的主要特性。 简单的说，一个类就是一个封装了数据以及操作这些数据的代码的逻辑实体。在一个对象内部，某些代码或某些数据可以是私有的，不能被外界访问。通过这种方式，对象对内部数据提供了不同级别的保护，以防止程序中无关的部分意外的改变或错误的使用了对象的私有部分。</p>
+</li>
+<li><p>继承<br>所谓继承是指可以让某个类型的对象获得另一个类型的对象的属性的方法。它支持按级分类的概念。继承是指这样一种能力：它可以使用现有类的所有功能，并在无需重新编写原来的类的情况下对这些功能进行扩展。 通过继承创建的新类称为“子类”或“派生类”，被继承的类称为“基类”、“父类”或“超类”。继承的过程，就是从一般到特殊的过程。要实现继承，可以通过“继承”（Inheritance）和“组合”（Composition）来实现。继承概念的实现方式有二类：实现继承与接口继承。实现继承是指直接使用基类的属性和方法而无需额外编码的能力；接口继承是指仅使用属性和方法的名称、但是子类必须提供实现的能力；</p>
+</li>
+<li><p>多态<br>谓多态就是指一个类实例的相同方法在不同情形有不同表现形式。多态机制使具有不同内部结构的对象可以共享相同的外部接口。这意味着，虽然针对不同对象的具体操作不同，但通过一个公共的类，它们（那些操作）可以通过相同的方式予以调用。</p>
+</li>
+</ul>
+<h2 id="面向对象的六大原则？"><a href="#面向对象的六大原则？" class="headerlink" title="面向对象的六大原则？"></a>面向对象的六大原则？</h2><p>然后老师又问了：那么，关于面向对象，你还了解什么其他的知识？<br>那么就说一说六大原则吧</p>
+<ul>
+<li>单一职责原则SRP(Single Responsibility Principle)<br>是指一个类的功能要单一，不能包罗万象。如同一个人一样，分配的工作不能太多，否则一天到晚虽然忙忙碌碌的，但效率却高不起来。</li>
+</ul>
+<ul>
+<li><p>开放封闭原则OCP(Open－Close Principle)<br>一个模块在扩展性方面应该是开放的而在更改性方面应该是封闭的。比如：一个网络模块，原来只服务端功能，而现在要加入客户端功能，<br>那么应当在不用修改服务端功能代码的前提下，就能够增加客户端功能的实现代码，这要求在设计之初，就应当将服务端和客户端分开，公共部分抽象出来。</p>
+</li>
+<li><p>替换原则(the Liskov Substitution Principle LSP)<br>子类应当可以替换父类并出现在父类能够出现的任何地方。比如：公司搞年度晚会，所有员工可以参加抽奖，那么不管是老员工还是新员工，<br>也不管是总部员工还是外派员工，都应当可以参加抽奖，否则这公司就不和谐了。</p>
+</li>
+<li><p>依赖原则(the Dependency Inversion Principle DIP)<br>具体依赖抽象，上层依赖下层。假设B是较A低的模块，但B需要使用到A的功能，<br>这个时候，B不应当直接使用A中的具体类： 而应当由B定义一抽象接口，并由A来实现这个抽象接口，B只使用这个抽象接口：这样就达到<br>了依赖倒置的目的，B也解除了对A的依赖，反过来是A依赖于B定义的抽象接口。通过上层模块难以避免依赖下层模块，假如B也直接依赖A的实现，那么就可能造成循环依赖。一个常见的问题就是编译A模块时需要直接包含到B模块的cpp文件，而编译B时同样要直接包含到A的cpp文件。</p>
+</li>
+<li><p>接口分离原则(the Interface Segregation Principle ISP)<br>模块间要通过抽象接口隔离开，而不是通过具体的类强耦合起来</p>
+</li>
+<li><p>迪米特法则或最少知识原则 Law of Demeter or Least Knowlegde Principle（LoD or LKP）<br>这个原则首次在Demeter系统中得到正式运用，所以定义为迪米特法则。它讲的是“一个对象应当尽可能少的去了解其他对象”。也就是又一个关于如何松耦合（Loosely-Coupled）的法则。</p>
+</li>
+</ul>
+<p>最后一点，Java入门学习时，很多教材或者教程都曾经使用过is - a 和 like - a，来描述继承和接口。但是这既正确也不正确。<br>为什么这么说呢。说不正确，因为，类和我们现实生活中的类型的概念并不一致，如果套用现实生活中的栗子，会引起异常。这里举个栗子，按照is-a的逻辑，我们定义一个基类“鸟”，然后“鸭子”是“鸟”，所以可以继承“鸟”，这时我们就会发现问题，“鸭子”并不具有基类“鸟”会飞的技能（方法），所以不能满足里氏替换原则。<br>说正确，这里的is - a，必须是抽象逻辑上的关系，子类要具备父类所有的功能。</p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[WebView和Js互调]]></title>
+      <url>https://sunnyxibei.github.io/2014/10/28/WebView%E5%92%8CJs%E4%BA%92%E8%B0%83/</url>
+      <content type="html"><![CDATA[<h2 id="WebView的基本配置"><a href="#WebView的基本配置" class="headerlink" title="WebView的基本配置"></a>WebView的基本配置</h2><a id="more"></a>
+<ol>
+<li><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">WebSettings settings = webView.getSettings();</span><br><span class="line">       settings.setJavaScriptEnabled(<span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>设置js为true</p>
+<p>2.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">webView.setWebViewClient(<span class="keyword">new</span> WebViewClient() &#123;</span><br><span class="line">           <span class="meta">@Override</span></span><br><span class="line">           <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">shouldOverrideUrlLoading</span><span class="params">(WebView view, String url)</span> </span>&#123;</span><br><span class="line">               view.loadUrl(url);</span><br><span class="line">               <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>复写shouldOverrideUrlLoading方法，保证url都是在WebView内打开</p>
+<p>##Android 调用JS方法<br>很简单，直接使用webView.loadUrl(“javascript:javacalljs()”);</p>
+<p>##JS 调用Android方法<br>注意：Android4.2以后，JS只能调用带有注解@JavaScriptInterface的Java函数<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webView.addJavascriptInterface(<span class="keyword">new</span> JS2JavaInterface(),<span class="string">"js2JavaInterface"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>使用这个方法添加一个指向JS的接口，但是实质上，参数1是一个类的对象，而非接口，参数2，是对象的别名，在JS中，使用window.js2JavaInterface.”方法名”调用该方法</p>
+<p>使用这个互调可以实现什么呢？<br>比如说，新闻详情页面的WebView中有图片，在js中对图片设置点击，调用Java方法，那么我们可以在用户点击图片后开启一个新的activity，并且把图片使用ViewPager展示，提升用户体验，OK！</p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Android项目打包的过程]]></title>
+      <url>https://sunnyxibei.github.io/2014/06/28/Android%E9%A1%B9%E7%9B%AE%E6%89%93%E5%8C%85%E7%9A%84%E8%BF%87%E7%A8%8B/</url>
+      <content type="html"><![CDATA[<h2 id="原理图"><a href="#原理图" class="headerlink" title="原理图"></a>原理图</h2><a id="more"></a>
+<p><img src="img/android打包流程图.png" alt=""></p>
+<ul>
+<li>aapt: android application package tool,SDK</li>
+</ul>
+<h2 id="Android打包流程"><a href="#Android打包流程" class="headerlink" title="Android打包流程"></a>Android打包流程</h2><ol>
+<li><p>通过aapt工具将 资源文件(res)、清单文件(AndroidManifest.xml)生成对应的R.java文件</p>
+<ul>
+<li><p>在项目的根目录下新建 gen目录，并且依次在gen目录下新建清单文件总包名对应的文件目录</p>
+<blockquote>
+<p>例如： 清单文件中包名是org.itheima.android，那么就在gen目录中新建目录结构为<br>gen/org/itheima/android</p>
+</blockquote>
+</li>
+<li><p>通过命令生成R.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aapt package -f -m -J [R文件目录(gen)] -S [资源文件目录(res)] -I [android环境jar(android.jar)] -M [清单文件(AndroidManifest.xml)]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>通过aidl工具 将 aidl文件转化为java文件</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aidl -I[项目的源文件目录(src)] -p[aidl框架环境文件(framework.aidl)] -o[aidl输出目录(gen)] [要转换的aidl文件(your.aidl)]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过javac工具，将<em>.java文件转化为</em>.class文件</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javac -encoding [编码(gbk or utf-8)] -target [版本(1.6 or 1.7)] -bootclasspath [android环境jar(android.jar)] -cp [依赖的jar(多个用;隔开;结尾)] -d [class文件输出目录] [要编译的java文件(多个用空格分开)]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将libs下的jar解压到输出目录中</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jar xvf [jar文件]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过dex命令 将class文件转换为dex文件</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dx.bat --dex --output=[全路径的输出文件(classes.dex)] [全路径的class文件对应的目录]</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p>[全路径的class文件对应的目录] : 如果此目录依赖了其他的jar文件，需要用 <code>|</code>分隔开<br>命令: dex.bat –dex –output=输出路径 需要转换的class文件对应的路径</p>
+</blockquote>
+<ol>
+<li><p>通过aapt工具生成资源文件包</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aapt package -f -M [清单文件(AndroidManifest.xml)] -S [资源文件目录(res)] -A [资产文件目录(assets)] -I [android环境jar(android.jar)] -F [输出的文件(resoures.ap_)]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成未签名的apk安装文件</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apkbuilder [输出的全路径apk] -u -z [全路径打包好的资源文件包] -f [全路径dex文件]  -rf  [全路径的src目录]  -rj  [全路径的libs目录]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成签名的apk安装文件</p>
+<ul>
+<li><p>生成签名文件</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -genkeypair -alias itheima -keyalg RSA -validity 3650 -keypass 123456 -storepass 123456 -keystore itheima.keystore</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p> -alias : 签名的别名<br> -validity : 签名的时效<br> -keyalg : 加密的算法，一般都用RSA<br> -keystore : 生成的签名路径<br> -keypass : 密钥库的密码<br> -storepass ：密钥的密码</p>
+</blockquote>
+</li>
+<li><p>通过签名文件给apk文件进行签名</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jarsigner -keystore 签名文件 -keypass 签名密码 -storepass 签名文件的密码 -signedjar 生成的签名文件 未签名的文件 签名的别名</span><br></pre></td></tr></table></figure>
+<blockquote>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="命令详解"><a href="#命令详解" class="headerlink" title="命令详解"></a>命令详解</h3><ul>
+<li>package 命令: 打包编译android资源<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">aapt p[ackage] [-d][-f][-m][-u][-v][-x][-z][-M AndroidManifest.xml] \</span><br><span class="line">        [-0 extension [-0 extension ...]] [-g tolerance] [-j jarfile] \</span><br><span class="line">        [--min-sdk-version VAL] [--target-sdk-version VAL] \</span><br><span class="line">        [--max-sdk-version VAL] [--app-version VAL] \</span><br><span class="line">        [--app-version-name TEXT] [--custom-package VAL] \</span><br><span class="line">        [-I base-package [-I base-package ...]] \</span><br><span class="line">        [-A asset-source-dir]  [-G class-list-file] [-P public-definitions-file] \</span><br><span class="line">        [-S resource-sources [-S resource-sources ...]]         [-F apk-file] [-J R-file-dir] \</span><br><span class="line">        [raw-files-dir [raw-files-dir] ...]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>[]的参数都是可选参数。<br><strong>[-d]:  指定一个或多个设备的资源文件被添加，多个资源文件用逗号隔开</strong><br><strong>[-f]:  是否覆盖已经存在的文件（添加此参数即为覆盖，否则不覆盖）</strong><br><strong>[-m]:  打包资源的文件目录，目录地址是<code>-J</code>参数指定</strong><br><strong>[-J]:  知道R文件生成的目录</strong><br><strong>[-S]:  需要打包的资源文件目录</strong><br><strong>[-I]:  指定环境android.jar的文件目录</strong><br><strong>[-M]:  清单文件的路径</strong></p>
+</blockquote>
+]]></content>
+    </entry>
+    
+  
+  
+</search>

@@ -1,0 +1,927 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android7.0源码编译," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="编译环境：Ubuntu 16.04 
+镜像文件：清华大学AOSP镜像  Android7.0">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android7.0源码编译运行指南">
+<meta property="og:url" content="https://sunnyxibei.github.io/2016/09/24/Android源码编译运行指南/index.html">
+<meta property="og:site_name" content="Android Baby">
+<meta property="og:description" content="编译环境：Ubuntu 16.04 
+镜像文件：清华大学AOSP镜像  Android7.0">
+<meta property="og:updated_time" content="2016-09-24T06:10:48.349Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android7.0源码编译运行指南">
+<meta name="twitter:description" content="编译环境：Ubuntu 16.04 
+镜像文件：清华大学AOSP镜像  Android7.0">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://sunnyxibei.github.io/2016/09/24/Android源码编译运行指南/"/>
+
+  <title> Android7.0源码编译运行指南 | Android Baby </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Android Baby</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">一天不进步，就是退步</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Android7.0源码编译运行指南
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-24T13:00:57+08:00" content="2016-09-24">
+              2016-09-24
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android进阶/" itemprop="url" rel="index">
+                    <span itemprop="name">Android进阶</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/24/Android源码编译运行指南/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/24/Android源码编译运行指南/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>编译环境：Ubuntu 16.04 </p>
+<p>镜像文件：清华大学AOSP镜像  Android7.0</p>
+<a id="more"></a>
+<h2 id="一、源码下载"><a href="#一、源码下载" class="headerlink" title="一、源码下载"></a>一、源码下载</h2><h3 id="1-镜像地址"><a href="#1-镜像地址" class="headerlink" title="1 镜像地址"></a>1 镜像地址</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">清华大学AOSP(Android Open Source Project)</span><br><span class="line">https://mirrors.tuna.tsinghua.edu.cn/help/AOSP/</span><br></pre></td></tr></table></figure>
+<h3 id="2-过程摘录"><a href="#2-过程摘录" class="headerlink" title="2 过程摘录"></a>2 过程摘录</h3><h4 id="下载Repo-工具"><a href="#下载Repo-工具" class="headerlink" title="下载Repo 工具"></a>下载Repo 工具</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir ~/bin</span><br><span class="line">PATH=~/bin:$PATH</span><br><span class="line">curl https://storage.googleapis.com/git-repo-downloads/repo &gt; ~/bin/repo</span><br><span class="line">chmod a+x ~/bin/repo</span><br></pre></td></tr></table></figure>
+<h4 id="使用每月更新的初始化包"><a href="#使用每月更新的初始化包" class="headerlink" title="使用每月更新的初始化包"></a>使用每月更新的初始化包</h4><p>由于首次同步需要下载 24GB 数据，过程中任何网络故障都可能造成同步失败，我们强烈建议您使用初始化包进行初始化。下载 <a href="https://mirrors.tuna.tsinghua.edu.cn/aosp-monthly/aosp-latest.tar" target="_blank" rel="external">https://mirrors.tuna.tsinghua.edu.cn/aosp-monthly/aosp-latest.tar</a>，下载完成后记得根据 checksum.txt 的内容校验一下。由于所有代码都是从隐藏的 <code>.repo</code> 目录中 checkout 出来的，所以我们只保留了 <code>.repo</code> 目录，下载后解压 再 <code>repo sync</code> 一遍即可得到完整的目录。</p>
+<p>使用方法如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget https://mirrors.tuna.tsinghua.edu.cn/aosp-monthly/aosp-latest.tar # 下载初始化包</span><br><span class="line">tar xf aosp-latest.tar</span><br><span class="line">cd AOSP   # 解压得到的 AOSP 工程目录</span><br><span class="line"># 这时 ls 的话什么也看不到，因为只有一个隐藏的 .repo 目录</span><br><span class="line">repo sync # 正常同步一遍即可得到完整目录</span><br><span class="line"># 或 repo sync -l 仅checkout代码</span><br></pre></td></tr></table></figure>
+<p>此后，每次只需运行 <code>repo sync</code> 即可保持同步。 <strong>我们强烈建议您保持每天同步，并尽量选择凌晨等低峰时间</strong></p>
+<h3 id="3-解决repo-sync下载代码时Failed-connect错误的办法："><a href="#3-解决repo-sync下载代码时Failed-connect错误的办法：" class="headerlink" title="3 解决repo sync下载代码时Failed connect错误的办法："></a>3 解决repo sync下载代码时Failed connect错误的办法：</h3><p>下载android代码时错误提示：error: Failed connect to android.googlesource.com:443<br>解决方法：编辑/etc/hosts文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/hosts</span><br></pre></td></tr></table></figure>
+<p>增加下面内容，保存</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">173.194.72.82 http://www.googlesource.com</span><br><span class="line">173.194.72.82 android.googlesource.com</span><br><span class="line">37.61.54.158 cache.pack.google.com</span><br><span class="line">173.194.74.82 gerrit.googlesource.com</span><br></pre></td></tr></table></figure>
+<h3 id="4-其他"><a href="#4-其他" class="headerlink" title="4 其他"></a>4 其他</h3><ul>
+<li>初始化包大小21.4G，我的网速5-6M/s，下载时间基本一个小时左右。</li>
+<li>Android7.0，aosp目录编译完之后的大小是54.6G，安装Ubuntu时要注意留够足够的空间，推荐100G+以上。</li>
+</ul>
+<h2 id="二、源码编译"><a href="#二、源码编译" class="headerlink" title="二、源码编译"></a>二、源码编译</h2><h3 id="1-搭建编译环境"><a href="#1-搭建编译环境" class="headerlink" title="1  搭建编译环境"></a>1  搭建编译环境</h3><ul>
+<li>openJdk is needed ！我自己平时开发用的是JDK1.8，这里就要安装一下openjdk，并且更改环境变量。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install openjdk-7-jdk</span><br></pre></td></tr></table></figure>
+<p>但是如果你是刚安装完Ubuntu，那么就可以跳过此步骤，Ubuntu自带openjdk</p>
+<ul>
+<li>required package</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install bison g++-multilib git gperf libxml2-utils make python-networkx zlib1g-dev:i386 zip</span><br></pre></td></tr></table></figure>
+<ul>
+<li>因为源码包含C 和 C++代码，gcc为必须</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install gcc</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Setting up ccache , 使用ccache</li>
+</ul>
+<p>ccache是一个编译器ccache用于C和C++。可以让构建更加快速。在源代码的根目录处，做如下操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$export USE_CCACHE=1</span><br><span class="line">$export CCACHE_DIR=/&lt;path_of_your_choice&gt;/.ccache</span><br><span class="line">$prebuilts/misc/linux-x86/ccache/ccache -M 50G&lt;/path_of_your_choice&gt;</span><br></pre></td></tr></table></figure>
+<p>建议的cache大小为50-100G</p>
+<p>可以使用如下操作来查看使用的ccache大小</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$watch -n1 -d prebuilts/misc/linux-x86/ccache/ccache -s</span><br></pre></td></tr></table></figure>
+<p>若使用Ice Cream Sandwich（4.0.x）或更老的版本，需要用prebuilts来代替prebuilts/misc</p>
+<h3 id="2-开始编译-Building-the-System"><a href="#2-开始编译-Building-the-System" class="headerlink" title="2 开始编译 Building the System"></a>2 开始编译 Building the System</h3><ul>
+<li>1.Set up environment</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ source build/envsetup.sh</span><br></pre></td></tr></table></figure>
+<p>or<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ . build/envsetup.sh</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>2.Choose a Target</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">$ lunch </span><br><span class="line"></span><br><span class="line">You&apos;re building on Linux</span><br><span class="line"></span><br><span class="line">Lunch menu... pick a combo:</span><br><span class="line">     1. aosp_arm-eng</span><br><span class="line">     2. aosp_arm64-eng</span><br><span class="line">     3. aosp_mips-eng</span><br><span class="line">     4. aosp_mips64-eng</span><br><span class="line">     5. aosp_x86-eng</span><br><span class="line">     6. aosp_x86_64-eng</span><br><span class="line">     7. aosp_manta-userdebug</span><br><span class="line">     8. aosp_flo-userdebug</span><br><span class="line">     9. aosp_deb-userdebug</span><br><span class="line">     10. full_fugu-userdebug</span><br><span class="line">     11. aosp_fugu-userdebug</span><br><span class="line">     12. aosp_tilapia-userdebug</span><br><span class="line">     13. aosp_grouper-userdebug</span><br><span class="line">     14. aosp_mako-userdebug</span><br><span class="line">     15. aosp_hammerhead-userdebug</span><br><span class="line">     16. aosp_flounder-userdebug</span><br><span class="line">     17. aosp_shamu-userdebug</span><br><span class="line">     18. mini_emulator_x86-userdebug</span><br><span class="line">     19. mini_emulator_arm64-userdebug</span><br><span class="line">     20. mini_emulator_x86_64-userdebug</span><br><span class="line">     21. mini_emulator_mips-userdebug</span><br><span class="line">     22. m_e_arm-userdebug</span><br><span class="line"></span><br><span class="line">Which would you like? [aosp_arm-eng]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>3.build</li>
+</ul>
+<p>使用make构建，GNU make可以通过使用-jN参数来处理并行任务。此处的N，根据所用的计算机的硬件的核数来指定，一般N指定为CPU核心的1到2倍。例如我的CPU是i5-6500（CPU4个核，每个核2个线程），那么最优的构建是使用make -j8。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make -j8</span><br></pre></td></tr></table></figure>
+<h3 id="3-build-successfully"><a href="#3-build-successfully" class="headerlink" title="3 build successfully"></a>3 build successfully</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#### make completed successfully (01:04:27 (hh:mm:ss)) ####</span><br></pre></td></tr></table></figure>
+<ul>
+<li>目录结构如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">7    9月  24 00:36 android-info.txt</span><br><span class="line">62   9月  24 00:22 build_fingerprint.txt</span><br><span class="line">4.0K 9月  24 10:34 cache</span><br><span class="line">66M  9月  24 12:26 cache.img</span><br><span class="line">70K  9月  23 23:51 clean_steps.mk</span><br><span class="line">38   9月  24 00:22 current_build_config.mk</span><br><span class="line">4.0K 9月  24 10:41 data</span><br><span class="line">4.0K 9月  24 09:51 dex_bootjars</span><br><span class="line">4.0K 9月  24 01:33 gen</span><br><span class="line">1.4K 9月  24 12:25 hardware-qemu.ini</span><br><span class="line">70K  9月  24 11:00 installed-files.txt</span><br><span class="line">1.1M 9月  24 00:30 module-info.json</span><br><span class="line">4.0K 9月  24 11:00 obj</span><br><span class="line">38   9月  23 23:51 previous_build_config.mk</span><br><span class="line">1.5M 9月  24 10:40 ramdisk.img</span><br><span class="line">4.0K 9月  24 10:39 recovery</span><br><span class="line">4.0K 9月  24 10:39 root</span><br><span class="line">4.0K 9月  24 10:39 symbols</span><br><span class="line">4.0K 9月  24 10:50 system</span><br><span class="line">1.8G 9月  24 11:01 system.img</span><br><span class="line">550M 9月  24 10:58 userdata.img</span><br><span class="line">550M 9月  24 12:41 userdata-qemu.img</span><br><span class="line">~/aosp/out/target/product/generic$</span><br></pre></td></tr></table></figure>
+<h3 id="4-编译中的问题解决"><a href="#4-编译中的问题解决" class="headerlink" title="4 编译中的问题解决"></a>4 编译中的问题解决</h3><ul>
+<li>第一次编译，在编译到82%的时候失败，报错 ： Increase Java heap size</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">including ./tools/external/fat32lib/Android.mk ...  </span><br><span class="line">Starting build with ninja  </span><br><span class="line">ninja: Entering directory `.'  </span><br><span class="line">[  0% 1/21542] Ensure Jack server is installed and started  </span><br><span class="line">Jack server already installed in "/home/smile/.jack-server"  </span><br><span class="line">Server is already running  </span><br><span class="line">[  0% 2/21542] Building with Jack: out/target/common/obj/JAVA_LIBRARIES/core-all_intermediates/with-local/classes.dex  </span><br><span class="line">FAILED: /bin/bash out/target/common/obj/JAVA_LIBRARIES/core-all_intermediates/with-local/classes.dex.rsp  </span><br><span class="line">Java heap space  </span><br><span class="line">Try increasing heap size with java option '-Xmx<span class="tag">&lt;<span class="name">size</span>&gt;</span>'  </span><br><span class="line">Warning: This may have produced partial or corrupted output.  </span><br><span class="line">ninja: build stopped: subcommand failed.  </span><br><span class="line">build/core/ninja.mk:146: recipe for target 'ninja_wrapper' failed  </span><br><span class="line">make: *** [ninja_wrapper] Error 1  </span><br><span class="line"></span><br><span class="line">\#### make failed to build some targets (08:25 (mm:ss)) ####</span><br></pre></td></tr></table></figure>
+<pre><code>stackoverflow上关于此问题的解决方法（[详见这里](http://stackoverflow.com/questions/34940793/increasing-heap-size-while-building-the-android-source-code-on-ubuntu-15-10)），在make之前进行heap size配置：
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. export JACK_SERVER_VM_ARGUMENTS=&quot;-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4096m&quot;  </span><br><span class="line">2. out/host/linux-x86/bin/jack-admin kill-server  </span><br><span class="line">3. out/host/linux-x86/bin/jack-admin start-server</span><br></pre></td></tr></table></figure>
+<h2 id="三、运行"><a href="#三、运行" class="headerlink" title="三、运行"></a>三、运行</h2><h3 id="1-推送设备（真机运行）Flash-device"><a href="#1-推送设备（真机运行）Flash-device" class="headerlink" title="1  推送设备（真机运行）Flash device"></a>1  推送设备（真机运行）Flash device</h3><ul>
+<li>To flash a device, you will need to use fastboot, which should be included in your path after a successful build. Place the device in fastboot mode either manually by holding the appropriate key combination at boot, or from the shell with</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ adb reboot bootloader</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Once the device is in fastboot mode, run</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ fastboot flashall -w</span><br></pre></td></tr></table></figure>
+<ul>
+<li>The -w option wipes the /data partition on the device; this is useful for your first time flashing a particular device but is otherwise unnecessary.</li>
+</ul>
+<h3 id="2-模拟器运行-Flash-emulator"><a href="#2-模拟器运行-Flash-emulator" class="headerlink" title="2 模拟器运行 Flash emulator"></a>2 模拟器运行 Flash emulator</h3><ul>
+<li>1.build generic img </li>
+</ul>
+<p>lunch 1即可</p>
+<ul>
+<li>2.启动模拟器</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">~/aosp$ emulator </span><br><span class="line"></span><br><span class="line">emulator: WARNING: system partition size adjusted to match image file (1536 MB &gt; 200 MB)</span><br><span class="line"></span><br><span class="line">emulator: WARNING: data partition size adjusted to match image file (550 MB &gt; 200 MB)</span><br><span class="line"></span><br><span class="line">emulator: WARNING: Increasing RAM size to 1GB </span><br><span class="line">Creating filesystem with parameters: </span><br><span class="line">Size: 576716800 </span><br><span class="line">Block size: 4096 </span><br><span class="line">Blocks per group: 32768 </span><br><span class="line">Inodes per group: 7040 </span><br><span class="line">Inode size: 256 </span><br><span class="line">Journal blocks: 2200 </span><br><span class="line">Label: </span><br><span class="line">Blocks: 140800 </span><br><span class="line">Block groups: 5 </span><br><span class="line">Reserved block group size: 39 </span><br><span class="line">Created filesystem with 11/35200 inodes and 4536/140800 blocks </span><br><span class="line">resize2fs 1.42.13 (17-May-2015) </span><br><span class="line">The filesystem is already 140800 (4k) blocks long. Nothing to do!</span><br><span class="line"></span><br><span class="line">Creating filesystem with parameters: </span><br><span class="line">Size: 69206016 </span><br><span class="line">Block size: 4096 </span><br><span class="line">Blocks per group: 32768 </span><br><span class="line">Inodes per group: 4224 </span><br><span class="line">Inode size: 256 </span><br><span class="line">Journal blocks: 1024 </span><br><span class="line">Label: </span><br><span class="line">Blocks: 16896 </span><br><span class="line">Block groups: 1 </span><br><span class="line">Reserved block group size: 7 </span><br><span class="line">Created filesystem with 11/4224 inodes and 1302/16896 blocks </span><br><span class="line">emulator: UpdateChecker: skipped version check</span><br></pre></td></tr></table></figure>
+<h3 id="3-注意事项"><a href="#3-注意事项" class="headerlink" title="3 注意事项"></a>3 注意事项</h3><ul>
+<li><p>1 因为上面的环境变量配置的是临时的，所以终端关闭后,直接运行emulator是不行的,需要重新运行下/build/envsetup.sh 和lunch 选择之前编译的版本</p>
+</li>
+<li><p>2 安装kvm，开启硬件加速</p>
+<p>无论是在Windows平台还是Linux平台，或者还是Mac OSX平台，虚拟机的硬件加速全靠这个。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install qemu-kvm</span><br></pre></td></tr></table></figure>
+<p>  直接执行，完成安装即可。</p>
+<p>  开启之后我们可以使用下面的指令来验证<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ egrep -c &apos;(vmx|svm)&apos; /proc/cpuinfo</span><br></pre></td></tr></table></figure></p>
+<p>  执行的结果不为<code>0</code>表示开启成功(我的是<code>4</code>)。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat-reward-image.png" alt="sunnyxibei WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay-reward-image.jpg" alt="sunnyxibei Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android7-0源码编译/" rel="tag">#Android7.0源码编译</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/25/守夜人军团誓言/" rel="next" title="守夜人军团誓言">
+                <i class="fa fa-chevron-left"></i> 守夜人军团誓言
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/09/24/Android源码编译运行指南/"
+     data-title="Android7.0源码编译运行指南"
+     data-content=""
+     data-url="https://sunnyxibei.github.io/2016/09/24/Android源码编译运行指南/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/24/Android源码编译运行指南/"
+           data-title="Android7.0源码编译运行指南" data-url="https://sunnyxibei.github.io/2016/09/24/Android源码编译运行指南/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/head.jpg"
+               alt="sunnyxibei" />
+          <p class="site-author-name" itemprop="name">sunnyxibei</p>
+          <p class="site-description motion-element" itemprop="description">Android 进阶中……</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、源码下载"><span class="nav-number">1.</span> <span class="nav-text">一、源码下载</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-镜像地址"><span class="nav-number">1.1.</span> <span class="nav-text">1 镜像地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-过程摘录"><span class="nav-number">1.2.</span> <span class="nav-text">2 过程摘录</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#下载Repo-工具"><span class="nav-number">1.2.1.</span> <span class="nav-text">下载Repo 工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用每月更新的初始化包"><span class="nav-number">1.2.2.</span> <span class="nav-text">使用每月更新的初始化包</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-解决repo-sync下载代码时Failed-connect错误的办法："><span class="nav-number">1.3.</span> <span class="nav-text">3 解决repo sync下载代码时Failed connect错误的办法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-其他"><span class="nav-number">1.4.</span> <span class="nav-text">4 其他</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、源码编译"><span class="nav-number">2.</span> <span class="nav-text">二、源码编译</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-搭建编译环境"><span class="nav-number">2.1.</span> <span class="nav-text">1  搭建编译环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-开始编译-Building-the-System"><span class="nav-number">2.2.</span> <span class="nav-text">2 开始编译 Building the System</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-build-successfully"><span class="nav-number">2.3.</span> <span class="nav-text">3 build successfully</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-编译中的问题解决"><span class="nav-number">2.4.</span> <span class="nav-text">4 编译中的问题解决</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、运行"><span class="nav-number">3.</span> <span class="nav-text">三、运行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-推送设备（真机运行）Flash-device"><span class="nav-number">3.1.</span> <span class="nav-text">1  推送设备（真机运行）Flash device</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-模拟器运行-Flash-emulator"><span class="nav-number">3.2.</span> <span class="nav-text">2 模拟器运行 Flash emulator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-注意事项"><span class="nav-number">3.3.</span> <span class="nav-text">3 注意事项</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sunnyxibei</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"sunnyxibei"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+
+  
+
+  
+
+</body>
+</html>

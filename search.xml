@@ -4,6 +4,41 @@
   
     
     <entry>
+      <title><![CDATA[ShareSDK集成分享功能中的一些坑]]></title>
+      <url>https://sunnyxibei.github.io/2016/12/09/ShareSDK%E9%9B%86%E6%88%90%E5%88%86%E4%BA%AB%E5%8A%9F%E8%83%BD%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/</url>
+      <content type="html"><![CDATA[<ul>
+<li>每天踩一坑</li>
+</ul>
+<blockquote>
+<p>其实就像用node.js和hexo搭建博客的过程中，集成多说评论等功能一样，SDK的集成本来应该很简单，照着文档写出来，应该就能跑起来。偏偏ShareSDK不是这样，集成过程还是花费了我不少时间，同时吐槽一下ShareSDK的代码规范，太TMD烂了。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="现在把开发中遇到的问题总结一下："><a href="#现在把开发中遇到的问题总结一下：" class="headerlink" title="现在把开发中遇到的问题总结一下："></a>现在把开发中遇到的问题总结一下：</h2><ul>
+<li><p>代码混淆，和很多开源项目一样，关于代码混淆的配置，代码混淆的配置永远都在一个角落里，细心的你一定不要落下：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-keep <span class="class"><span class="keyword">class</span> <span class="title">cn</span>.<span class="title">sharesdk</span>.**&#123;</span>*;&#125;</span><br><span class="line">-keep <span class="class"><span class="keyword">class</span> <span class="title">com</span>.<span class="title">sina</span>.**&#123;</span>*;&#125;</span><br><span class="line">-keep <span class="class"><span class="keyword">class</span> **.<span class="title">R</span>$* &#123;</span>*;&#125;</span><br><span class="line">-keep <span class="class"><span class="keyword">class</span> **.<span class="title">R</span>&#123;</span>*;&#125;</span><br><span class="line">-keep <span class="class"><span class="keyword">class</span> <span class="title">com</span>.<span class="title">mob</span>.**&#123;</span>*;&#125;</span><br><span class="line">-dontwarn com.mob.**</span><br><span class="line">-dontwarn cn.sharesdk.**</span><br><span class="line">-dontwarn **.R$*</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>微信和微信朋友圈</p>
+<p>这里要到微信开放平台，填写应用信息，申请AppId和AppSecret</p>
+<p>这里一定要注意了，签名那一栏，填写的是签名的MD5指纹，获取MD5的方式有两种：</p>
+<ol>
+<li><p>使用微信开放平台上提供的工具，安装到手机上（手机上同时要安装你要申请的App的包，要release签名的），</p>
+<p>然后打开工具App，输入你的App的包名，就能获取签名的MD指纹。</p>
+</li>
+<li><p>使用java的工具keytool，使用命令行查看签名的信息，直接在AndroidStudio的控制台或者自己用cmd打开控制台<br>都可以，具体的命令就不罗列了，自行百度。</p>
+</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p>这里有一个神坑，在微信开放平台上填写签名的MD5的时候，注意两点，第一字母要小写，第二中间不能有冒号”:”，有多少英雄好汉栽倒在这个地方，这儿折腾了我差不多两个小时。</p>
+</blockquote>
+<ul>
+<li>其他的就很简单了，照着ShareSDK的文档开发，一步一步地，你的分享功能就成功了!</li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[谁谓河广，一苇航之]]></title>
       <url>https://sunnyxibei.github.io/2016/10/19/%E8%B0%81%E8%B0%93%E6%B2%B3%E5%B9%BF%EF%BC%8C%E4%B8%80%E8%8B%87%E8%88%AA%E4%B9%8B/</url>
       <content type="html"><![CDATA[<p><img src="https://sunnyxibei.github.io/images/head.jpg" class="full-image"></p>

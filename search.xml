@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title><![CDATA[EventBus踩坑记]]></title>
+      <url>https://sunnyxibei.github.io/2016/12/25/EventBus%E8%B8%A9%E5%9D%91%E8%AE%B0/</url>
+      <content type="html"><![CDATA[<p>EventBus作为Android中的事件总线，可以在很大程度上对代码解耦。</p>
+<p>正好今天想把代码重构一下，有了EventBus，Activity和Service之间通信的时候，再也不要写繁琐的aidl了，爽乎哉。</p>
+<p>然而，意外发生了。</p>
+<a id="more"></a>
+<blockquote>
+<p>Problem 1</p>
+</blockquote>
+<p>我在Activity中post一个downloadUrl到Service，然后让Service开启下载任务，奈何反复测试多次，Service中的@Subsribe注解方法，死活就是没有被调用。这个时候，我已近慢慢意识到，可能是我在发送事件的时候，Service注册EventBus的方法还没有执行。</p>
+<p>然后打印了一下log，果然验证了我的猜想。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">12-25 01:16:30.379: E/HomeActivity(31290): initData:  before home register eventbus : 1482599790379</span><br><span class="line">12-25 01:16:30.382: E/HomeActivity(31290): initData:  after home register eventbus : 1482599790381</span><br><span class="line">12-25 01:16:30.398: E/HomeActivity(31290): initData:  before start service : 1482599790398</span><br><span class="line">12-25 01:16:30.402: E/HomeActivity(31290): initData:  after start service : 1482599790402</span><br><span class="line">12-25 01:16:30.568: E/HomeActivity(31290): initData:  send eventbus msg : 1482599790568</span><br><span class="line">12-25 01:16:30.650: E/HomeActivity(31290): initData:  service onCreate : 1482599790650</span><br><span class="line">12-25 01:16:30.650: E/HomeActivity(31290): initData:  before service register eventbus : 1482599790650</span><br><span class="line">12-25 01:16:30.650: E/HomeActivity(31290): initData:  after service register eventbus : 1482599790650</span><br></pre></td></tr></table></figure>
+<p>所以看来，要在Activity中发送一个延时任务，等待1s后在执行下载任务。</p>
+<p>或者使用aidl，看来还是老司机更稳啊。</p>
+<blockquote>
+<p>Problem 2</p>
+</blockquote>
+<p>由于对RxJava和Stream Api的喜爱，我在自己的项目中都使用了Java8 和 Jack编译器。</p>
+<p>EventBus升级3.0后使用注解方式，如果不在编译时进行索引的话，效率比2.4还低，这哪儿行啊。生成索引的话又要用到apt插件，然而Jack不支持apt ! 感觉好慌乱有木有! 没有爱了!</p>
+<p>两个都是最爱，但是只能舍弃一个了。只能把Jack关掉，引入retrolambda插件支持lambda表达式。暂且如此把。</p>
+<p>期待Android全面支持Java8的那一天!</p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[进击的 Material Design （开篇）]]></title>
       <url>https://sunnyxibei.github.io/2016/12/23/%E8%BF%9B%E5%87%BB%E7%9A%84-Material-Design/</url>
       <content type="html"><![CDATA[<blockquote>

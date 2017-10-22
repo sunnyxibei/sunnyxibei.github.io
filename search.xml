@@ -4,41 +4,6 @@
   
     
     <entry>
-      <title><![CDATA[ShareSDK集成分享功能中的一些坑]]></title>
-      <url>https://sunnyxibei.github.io/2016/12/09/ShareSDK%E9%9B%86%E6%88%90%E5%88%86%E4%BA%AB%E5%8A%9F%E8%83%BD%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/</url>
-      <content type="html"><![CDATA[<ul>
-<li>每天踩一坑</li>
-</ul>
-<blockquote>
-<p>其实就像用node.js和hexo搭建博客的过程中，集成多说评论等功能一样，SDK的集成本来应该很简单，照着文档写出来，应该就能跑起来。偏偏ShareSDK不是这样，集成过程还是花费了我不少时间，同时吐槽一下ShareSDK的代码规范，太TMD烂了。</p>
-</blockquote>
-<a id="more"></a>
-<h2 id="现在把开发中遇到的问题总结一下："><a href="#现在把开发中遇到的问题总结一下：" class="headerlink" title="现在把开发中遇到的问题总结一下："></a>现在把开发中遇到的问题总结一下：</h2><ul>
-<li><p>代码混淆，和很多开源项目一样，关于代码混淆的配置，代码混淆的配置永远都在一个角落里，细心的你一定不要落下：</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-keep <span class="class"><span class="keyword">class</span> <span class="title">cn</span>.<span class="title">sharesdk</span>.**&#123;</span>*;&#125;</span><br><span class="line">-keep <span class="class"><span class="keyword">class</span> <span class="title">com</span>.<span class="title">sina</span>.**&#123;</span>*;&#125;</span><br><span class="line">-keep <span class="class"><span class="keyword">class</span> **.<span class="title">R</span>$* &#123;</span>*;&#125;</span><br><span class="line">-keep <span class="class"><span class="keyword">class</span> **.<span class="title">R</span>&#123;</span>*;&#125;</span><br><span class="line">-keep <span class="class"><span class="keyword">class</span> <span class="title">com</span>.<span class="title">mob</span>.**&#123;</span>*;&#125;</span><br><span class="line">-dontwarn com.mob.**</span><br><span class="line">-dontwarn cn.sharesdk.**</span><br><span class="line">-dontwarn **.R$*</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>微信和微信朋友圈</p>
-<p>这里要到微信开放平台，填写应用信息，申请AppId和AppSecret</p>
-<p>这里一定要注意了，签名那一栏，填写的是签名的MD5指纹，获取MD5的方式有两种：</p>
-<ol>
-<li><p>使用微信开放平台上提供的工具，安装到手机上（手机上同时要安装你要申请的App的包，要release签名的），</p>
-<p>然后打开工具App，输入你的App的包名，就能获取签名的MD指纹。</p>
-</li>
-<li><p>使用java的工具keytool，使用命令行查看签名的信息，直接在AndroidStudio的控制台或者自己用cmd打开控制台<br>都可以，具体的命令就不罗列了，自行百度。</p>
-</li>
-</ol>
-</li>
-</ul>
-<blockquote>
-<p>这里有一个神坑，在微信开放平台上填写签名的MD5的时候，注意两点，第一字母要小写，第二中间不能有冒号”:”，有多少英雄好汉栽倒在这个地方，这儿折腾了我差不多两个小时。</p>
-</blockquote>
-<ul>
-<li>其他的就很简单了，照着ShareSDK的文档开发，一步一步地，你的分享功能就成功了!</li>
-</ul>
-]]></content>
-    </entry>
-    
-    <entry>
       <title><![CDATA[谁谓河广，一苇航之]]></title>
       <url>https://sunnyxibei.github.io/2016/10/19/%E8%B0%81%E8%B0%93%E6%B2%B3%E5%B9%BF%EF%BC%8C%E4%B8%80%E8%8B%87%E8%88%AA%E4%B9%8B/</url>
       <content type="html"><![CDATA[<p><img src="https://sunnyxibei.github.io/images/head.jpg" class="full-image"></p>
@@ -166,30 +131,6 @@
     </entry>
     
     <entry>
-      <title><![CDATA[沉浸式App]]></title>
-      <url>https://sunnyxibei.github.io/2015/11/03/%E6%B2%89%E6%B5%B8%E5%BC%8FApp/</url>
-      <content type="html"><![CDATA[<p>非全屏幕:Javacode着色状态栏<br>代码位置：com.example.systembar.CodeActivity<br>①　先写版本判断<br>②　直接调用setStatusBarColor</p>
-<a id="more"></a>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">    <span class="comment">//去掉titlebar-全屏模式</span></span><br><span class="line">    supportRequestWindowFeature(Window.FEATURE_NO_TITLE);</span><br><span class="line">    <span class="comment">//细节supportRequestWindowFeature一定要在setContentView之前设置</span></span><br><span class="line">    setContentView(R.layout.activity_main);</span><br><span class="line">    Activity activity = <span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">int</span> statusColor = Color.parseColor(<span class="string">"#008000"</span>);</span><br><span class="line">    <span class="comment">//针对版本5.x以上的即LOLLIPOP以上的</span></span><br><span class="line">    <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.LOLLIPOP) &#123;</span><br><span class="line">        Window window = activity.getWindow();</span><br><span class="line">        <span class="comment">//设置透明状态栏,这样才能让 ContentView 向上</span></span><br><span class="line">        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);</span><br><span class="line">        <span class="comment">//需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色</span></span><br><span class="line">        <span class="comment">// window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);</span></span><br><span class="line">        <span class="comment">//设置状态栏颜色</span></span><br><span class="line">        <span class="comment">// window.setStatusBarColor(statusColor);</span></span><br><span class="line">        ViewGroup mContentView = (ViewGroup) activity.findViewById(Window.ID_ANDROID_CONTENT);</span><br><span class="line">        View mChildView = mContentView.getChildAt(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span> (mChildView != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">//注意不是设置 ContentView 的 FitsSystemWindows, 而是设置 ContentView 的第一个子 View .</span></span><br><span class="line">            <span class="comment">// 使其不为系统 View 预留空间.不预留空间的话 状态栏就会覆盖布局顶部</span></span><br><span class="line">            ViewCompat.setFitsSystemWindows(mChildView, <span class="keyword">false</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[手动发送SD卡就绪广播]]></title>
-      <url>https://sunnyxibei.github.io/2015/10/23/%E6%89%8B%E5%8A%A8%E5%8F%91%E9%80%81SD%E5%8D%A1%E5%B0%B1%E7%BB%AA%E5%B9%BF%E6%92%AD/</url>
-      <content type="html"><![CDATA[<p> 通常在我们的项目中，可能会遇到写本地文件，最常用的就是图片文件，在这之后需要通知系统重新扫描SD卡<a id="more"></a>，<br>在Android4.4之前也就是以发送一个Action为<br><code>“Intent.ACTION_MEDIA_MOUNTED”</code><br>的广播通知执行扫描。如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">this.sendBroadcast(new </span><br><span class="line">Intent(Intent.ACTION_MEDIA_MOUNTED,Uri.parse(&quot;file://&quot; +Environment.getExternalStorageDirectory())));</span><br></pre></td></tr></table></figure>
-<p>但在Android4.4中，则会抛出以下异常：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">W/ActivityManager(  498):</span><br><span class="line"> Permission Denial: not allowed to send broadcast </span><br><span class="line"> android.intent.action.MEDIA_MOUNTED from pid=2269, uid=20016</span><br></pre></td></tr></table></figure>
-<p>那是因为Android4.4中限制了系统应用才有权限使用广播通知系统扫描SD卡。<br>解决方式：<br>使用MediaScannerConnection执行具体文件或文件夹进行扫描。（博主亲测可用，不能用博主直播吃康家沟变态辣鸡翅！）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MediaScannerConnection.scanFile(this, new String[]</span><br><span class="line">&#123;Environment.getExternalStoragePublicDirectory(Environment</span><br><span class="line">.DIRECTORY_DCIM).getPath() + &quot;/&quot; + fileName&#125;, null, null);</span><br></pre></td></tr></table></figure>
-<p>MediaScannerConnection provides a way for applications to pass a newly created or downloaded media file to the media scanner service. The media scanner service will read metadata from the file and add the file to the media content provider. The MediaScannerConnectionClient provides an interface for the media scanner service to return the Uri for a newly scanned file to the client of the MediaScannerConnection class.</p>
-<p>好吧，其实我用的是另外的一个方法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = new Intent();</span><br><span class="line">intent.setAction(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);</span><br><span class="line">//这个Action其实是用来刷新指定目录的</span><br><span class="line">//但是这里我偷个懒，Uri设置为sdcard目录</span><br><span class="line">intent.setData(Uri.fromFile(Environment.getExternalStorageDirectory()));</span><br><span class="line"></span><br><span class="line">sendBroadcast(intent);</span><br></pre></td></tr></table></figure>
-<p>以上两种方式，解决的思路是一样的，—》刷新指定的文件目录。<br>但是，明显第一种更官方更专业更有逼格，也更节省资源。<br>是的，第二种方式，伪装成系统去发送欺骗广播，想一想都醉了。。。<br>涨知识了吧，骚年！</p>
-]]></content>
-    </entry>
-    
-    <entry>
       <title><![CDATA[对JNI中使用fork创建守护进程的认识]]></title>
       <url>https://sunnyxibei.github.io/2015/06/26/%E5%AF%B9JNI%E4%B8%AD%E4%BD%BF%E7%94%A8fork%E5%88%9B%E5%BB%BA%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%AE%A4%E8%AF%86/</url>
       <content type="html"><![CDATA[<ul>
@@ -260,94 +201,6 @@
 </li>
 </ul>
 <p>最后一点，Java入门学习时，很多教材或者教程都曾经使用过is - a 和 like - a，来描述继承和接口。但是这既正确也不正确。<br>为什么这么说呢。说不正确，因为，类和我们现实生活中的类型的概念并不一致，如果套用现实生活中的栗子，会引起异常。这里举个栗子，按照is-a的逻辑，我们定义一个基类“鸟”，然后“鸭子”是“鸟”，所以可以继承“鸟”，这时我们就会发现问题，“鸭子”并不具有基类“鸟”会飞的技能（方法），所以不能满足里氏替换原则。<br>说正确，这里的is - a，必须是抽象逻辑上的关系，子类要具备父类所有的功能。</p>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[WebView和Js互调]]></title>
-      <url>https://sunnyxibei.github.io/2014/10/28/WebView%E5%92%8CJs%E4%BA%92%E8%B0%83/</url>
-      <content type="html"><![CDATA[<h2 id="WebView的基本配置"><a href="#WebView的基本配置" class="headerlink" title="WebView的基本配置"></a>WebView的基本配置</h2><a id="more"></a>
-<ol>
-<li><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">WebSettings settings = webView.getSettings();</span><br><span class="line">       settings.setJavaScriptEnabled(<span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>设置js为true</p>
-<p>2.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">webView.setWebViewClient(<span class="keyword">new</span> WebViewClient() &#123;</span><br><span class="line">           <span class="meta">@Override</span></span><br><span class="line">           <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">shouldOverrideUrlLoading</span><span class="params">(WebView view, String url)</span> </span>&#123;</span><br><span class="line">               view.loadUrl(url);</span><br><span class="line">               <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;);</span><br></pre></td></tr></table></figure></p>
-<p>复写shouldOverrideUrlLoading方法，保证url都是在WebView内打开</p>
-<p>##Android 调用JS方法<br>很简单，直接使用webView.loadUrl(“javascript:javacalljs()”);</p>
-<p>##JS 调用Android方法<br>注意：Android4.2以后，JS只能调用带有注解@JavaScriptInterface的Java函数<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webView.addJavascriptInterface(<span class="keyword">new</span> JS2JavaInterface(),<span class="string">"js2JavaInterface"</span>);</span><br></pre></td></tr></table></figure></p>
-<p>使用这个方法添加一个指向JS的接口，但是实质上，参数1是一个类的对象，而非接口，参数2，是对象的别名，在JS中，使用window.js2JavaInterface.”方法名”调用该方法</p>
-<p>使用这个互调可以实现什么呢？<br>比如说，新闻详情页面的WebView中有图片，在js中对图片设置点击，调用Java方法，那么我们可以在用户点击图片后开启一个新的activity，并且把图片使用ViewPager展示，提升用户体验，OK！</p>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Android项目打包的过程]]></title>
-      <url>https://sunnyxibei.github.io/2014/06/28/Android%E9%A1%B9%E7%9B%AE%E6%89%93%E5%8C%85%E7%9A%84%E8%BF%87%E7%A8%8B/</url>
-      <content type="html"><![CDATA[<h2 id="原理图"><a href="#原理图" class="headerlink" title="原理图"></a>原理图</h2><a id="more"></a>
-<p><img src="img/android打包流程图.png" alt=""></p>
-<ul>
-<li>aapt: android application package tool,SDK</li>
-</ul>
-<h2 id="Android打包流程"><a href="#Android打包流程" class="headerlink" title="Android打包流程"></a>Android打包流程</h2><ol>
-<li><p>通过aapt工具将 资源文件(res)、清单文件(AndroidManifest.xml)生成对应的R.java文件</p>
-<ul>
-<li><p>在项目的根目录下新建 gen目录，并且依次在gen目录下新建清单文件总包名对应的文件目录</p>
-<blockquote>
-<p>例如： 清单文件中包名是org.itheima.android，那么就在gen目录中新建目录结构为<br>gen/org/itheima/android</p>
-</blockquote>
-</li>
-<li><p>通过命令生成R.java</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aapt package -f -m -J [R文件目录(gen)] -S [资源文件目录(res)] -I [android环境jar(android.jar)] -M [清单文件(AndroidManifest.xml)]</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>通过aidl工具 将 aidl文件转化为java文件</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aidl -I[项目的源文件目录(src)] -p[aidl框架环境文件(framework.aidl)] -o[aidl输出目录(gen)] [要转换的aidl文件(your.aidl)]</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>通过javac工具，将<em>.java文件转化为</em>.class文件</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javac -encoding [编码(gbk or utf-8)] -target [版本(1.6 or 1.7)] -bootclasspath [android环境jar(android.jar)] -cp [依赖的jar(多个用;隔开;结尾)] -d [class文件输出目录] [要编译的java文件(多个用空格分开)]</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>将libs下的jar解压到输出目录中</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jar xvf [jar文件]</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>通过dex命令 将class文件转换为dex文件</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dx.bat --dex --output=[全路径的输出文件(classes.dex)] [全路径的class文件对应的目录]</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<blockquote>
-<p>[全路径的class文件对应的目录] : 如果此目录依赖了其他的jar文件，需要用 <code>|</code>分隔开<br>命令: dex.bat –dex –output=输出路径 需要转换的class文件对应的路径</p>
-</blockquote>
-<ol>
-<li><p>通过aapt工具生成资源文件包</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aapt package -f -M [清单文件(AndroidManifest.xml)] -S [资源文件目录(res)] -A [资产文件目录(assets)] -I [android环境jar(android.jar)] -F [输出的文件(resoures.ap_)]</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>生成未签名的apk安装文件</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apkbuilder [输出的全路径apk] -u -z [全路径打包好的资源文件包] -f [全路径dex文件]  -rf  [全路径的src目录]  -rj  [全路径的libs目录]</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>生成签名的apk安装文件</p>
-<ul>
-<li><p>生成签名文件</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -genkeypair -alias itheima -keyalg RSA -validity 3650 -keypass 123456 -storepass 123456 -keystore itheima.keystore</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p> -alias : 签名的别名<br> -validity : 签名的时效<br> -keyalg : 加密的算法，一般都用RSA<br> -keystore : 生成的签名路径<br> -keypass : 密钥库的密码<br> -storepass ：密钥的密码</p>
-</blockquote>
-</li>
-<li><p>通过签名文件给apk文件进行签名</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jarsigner -keystore 签名文件 -keypass 签名密码 -storepass 签名文件的密码 -signedjar 生成的签名文件 未签名的文件 签名的别名</span><br></pre></td></tr></table></figure>
-<blockquote>
-</blockquote>
-</li>
-</ul>
-</li>
-</ol>
-<h3 id="命令详解"><a href="#命令详解" class="headerlink" title="命令详解"></a>命令详解</h3><ul>
-<li>package 命令: 打包编译android资源<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">aapt p[ackage] [-d][-f][-m][-u][-v][-x][-z][-M AndroidManifest.xml] \</span><br><span class="line">        [-0 extension [-0 extension ...]] [-g tolerance] [-j jarfile] \</span><br><span class="line">        [--min-sdk-version VAL] [--target-sdk-version VAL] \</span><br><span class="line">        [--max-sdk-version VAL] [--app-version VAL] \</span><br><span class="line">        [--app-version-name TEXT] [--custom-package VAL] \</span><br><span class="line">        [-I base-package [-I base-package ...]] \</span><br><span class="line">        [-A asset-source-dir]  [-G class-list-file] [-P public-definitions-file] \</span><br><span class="line">        [-S resource-sources [-S resource-sources ...]]         [-F apk-file] [-J R-file-dir] \</span><br><span class="line">        [raw-files-dir [raw-files-dir] ...]</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<p>[]的参数都是可选参数。<br><strong>[-d]:  指定一个或多个设备的资源文件被添加，多个资源文件用逗号隔开</strong><br><strong>[-f]:  是否覆盖已经存在的文件（添加此参数即为覆盖，否则不覆盖）</strong><br><strong>[-m]:  打包资源的文件目录，目录地址是<code>-J</code>参数指定</strong><br><strong>[-J]:  知道R文件生成的目录</strong><br><strong>[-S]:  需要打包的资源文件目录</strong><br><strong>[-I]:  指定环境android.jar的文件目录</strong><br><strong>[-M]:  清单文件的路径</strong></p>
-</blockquote>
 ]]></content>
     </entry>
     

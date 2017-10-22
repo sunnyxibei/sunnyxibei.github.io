@@ -290,133 +290,6 @@
             
               
                 
-                <a class="post-title-link" href="/2016/12/09/ShareSDK集成分享功能中的一些坑/" itemprop="url">
-                  ShareSDK集成分享功能中的一些坑
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-12-09T02:58:36+08:00" content="2016-12-09">
-              2016-12-09
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/每天踩一坑/" itemprop="url" rel="index">
-                    <span itemprop="name">每天踩一坑</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/12/09/ShareSDK集成分享功能中的一些坑/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/09/ShareSDK集成分享功能中的一些坑/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <ul>
-<li>每天踩一坑</li>
-</ul>
-<blockquote>
-<p>其实就像用node.js和hexo搭建博客的过程中，集成多说评论等功能一样，SDK的集成本来应该很简单，照着文档写出来，应该就能跑起来。偏偏ShareSDK不是这样，集成过程还是花费了我不少时间，同时吐槽一下ShareSDK的代码规范，太TMD烂了。</p>
-</blockquote>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/12/09/ShareSDK集成分享功能中的一些坑/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2016/10/19/谁谓河广，一苇航之/" itemprop="url">
                   谁谓河广，一苇航之
                 </a>
@@ -784,8 +657,8 @@
             
               
                 
-                <a class="post-title-link" href="/2015/11/03/沉浸式App/" itemprop="url">
-                  沉浸式App
+                <a class="post-title-link" href="/2015/06/26/对JNI中使用fork创建守护进程的认识/" itemprop="url">
+                  对JNI中使用fork创建守护进程的认识
                 </a>
               
             
@@ -798,19 +671,38 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-11-03T13:42:50+08:00" content="2015-11-03">
-              2015-11-03
+            <time itemprop="dateCreated" datetime="2015-06-26T07:32:36+08:00" content="2015-06-26">
+              2015-06-26
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android进阶/" itemprop="url" rel="index">
+                    <span itemprop="name">Android进阶</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/11/03/沉浸式App/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/03/沉浸式App/" itemprop="commentsCount"></span>
+                <a href="/2015/06/26/对JNI中使用fork创建守护进程的认识/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/26/对JNI中使用fork创建守护进程的认识/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -834,9 +726,137 @@
 
       
         
-          <p>非全屏幕:Javacode着色状态栏<br>代码位置：com.example.systembar.CodeActivity<br>①　先写版本判断<br>②　直接调用setStatusBarColor</p>
+          <ul>
+<li>刚接触JNI，对C语言认识比较浅，所以对fork()函数纠结了一整天。查阅了一些C的资料，了解了fork的用法，恍然大悟。写一个日志出来，给同样JNI入门的哥们谋个福利。
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/11/03/沉浸式App/#more" rel="contents">
+            <a class="btn" href="/2015/06/26/对JNI中使用fork创建守护进程的认识/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/05/22/Android常用缩略词汇/" itemprop="url">
+                  Android 常用缩略词汇
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-05-22T00:06:24+08:00" content="2015-05-22">
+              2015-05-22
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android基础/" itemprop="url" rel="index">
+                    <span itemprop="name">Android基础</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/05/22/Android常用缩略词汇/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/22/Android常用缩略词汇/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <ul>
+<li>REST : Representational State Transfer，表述性状态传递</li>
+<li>RxJava: Reactive Extensions for the JVM 响应式扩展</li>
+<li>NDK: Native Develop Kits 本地开发工具包</li>
+<li>JNI: Java Native Interface Java本地接口</li>
+<li>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/05/22/Android常用缩略词汇/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -870,7 +890,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -911,7 +931,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-count">6</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -919,7 +939,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -928,7 +948,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

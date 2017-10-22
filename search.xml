@@ -4,46 +4,6 @@
   
     
     <entry>
-      <title><![CDATA[EventBus踩坑记]]></title>
-      <url>https://sunnyxibei.github.io/2016/12/25/EventBus%E8%B8%A9%E5%9D%91%E8%AE%B0/</url>
-      <content type="html"><![CDATA[<p>EventBus作为Android中的事件总线，可以在很大程度上对代码解耦。</p>
-<p>正好今天想把代码重构一下，有了EventBus，Activity和Service之间通信的时候，再也不要写繁琐的aidl了，爽乎哉。</p>
-<p>然而，意外发生了。</p>
-<a id="more"></a>
-<blockquote>
-<p>Problem 1</p>
-</blockquote>
-<p>我在Activity中post一个downloadUrl到Service，然后让Service开启下载任务，奈何反复测试多次，Service中的@Subsribe注解方法，死活就是没有被调用。这个时候，我已近慢慢意识到，可能是我在发送事件的时候，Service注册EventBus的方法还没有执行。</p>
-<p>然后打印了一下log，果然验证了我的猜想。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">12-25 01:16:30.379: E/HomeActivity(31290): initData:  before home register eventbus : 1482599790379</span><br><span class="line">12-25 01:16:30.382: E/HomeActivity(31290): initData:  after home register eventbus : 1482599790381</span><br><span class="line">12-25 01:16:30.398: E/HomeActivity(31290): initData:  before start service : 1482599790398</span><br><span class="line">12-25 01:16:30.402: E/HomeActivity(31290): initData:  after start service : 1482599790402</span><br><span class="line">12-25 01:16:30.568: E/HomeActivity(31290): initData:  send eventbus msg : 1482599790568</span><br><span class="line">12-25 01:16:30.650: E/HomeActivity(31290): initData:  service onCreate : 1482599790650</span><br><span class="line">12-25 01:16:30.650: E/HomeActivity(31290): initData:  before service register eventbus : 1482599790650</span><br><span class="line">12-25 01:16:30.650: E/HomeActivity(31290): initData:  after service register eventbus : 1482599790650</span><br></pre></td></tr></table></figure>
-<p>所以看来，要在Activity中发送一个延时任务，等待1s后在执行下载任务。</p>
-<p>或者使用aidl，看来还是老司机更稳啊。</p>
-<blockquote>
-<p>Problem 2</p>
-</blockquote>
-<p>由于对RxJava和Stream Api的喜爱，我在自己的项目中都使用了Java8 和 Jack编译器。</p>
-<p>EventBus升级3.0后使用注解方式，如果不在编译时进行索引的话，效率比2.4还低，这哪儿行啊。生成索引的话又要用到apt插件，然而Jack不支持apt ! 感觉好慌乱有木有! 没有爱了!</p>
-<p>两个都是最爱，但是只能舍弃一个了。只能把Jack关掉，引入retrolambda插件支持lambda表达式。暂且如此把。</p>
-<p>期待Android全面支持Java8的那一天!</p>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[进击的 Material Design （开篇）]]></title>
-      <url>https://sunnyxibei.github.io/2016/12/23/%E8%BF%9B%E5%87%BB%E7%9A%84-Material-Design/</url>
-      <content type="html"><![CDATA[<blockquote>
-<p>从 Android2.3 时代到现在的 Android7.1，Android 市场不断成熟，竞争越发激烈。当初几乎程序员凭一己之力就可以写出一个 DAU 上万的 App 的时代，如今已经一去不复返。国内的 App 市场分发渠道，大大小小数以百计，如何在这么多 App 中脱颖而出，获得老司机用户的青睐，已经成为一个越来越重要的问题。</p>
-<p>一个 App，可以从功能和交互两个方面拆解。随着竞争的激烈，交互越来越凸显重要性。</p>
-</blockquote>
-<a id="more"></a>
-<p>但是，由于 Android 开放性的原因，各种版本，各种定制 ROM，没有一个统一的设计风格。一旦和 IOS 对比，Android 在 UI 交互这方面一直都是饱受诟病。犹记得 Android2.3 的时代，为了美化状态栏和字体，费尽心思去 Root，把手机打扮地更像 IOS 一些。<br>很多年以后，或许我还会记得第一次见到 Material Design 风格的设计，全新的动画，流畅的交互，立体的元素，简直亮瞎了我的氪金狗眼。</p>
-<p>然而，从2015年 Google I/O 大会到现在，已经快要过去两年的时间，Material Design 的使用并不是很广泛，十月份在中关村的一个沙龙上，一个主讲设计师同样表达了这种困惑。在我今年的项目中，极力想使用 Material Design 的风格和控件，然而我们的美攻妹子并不感冒，而且也不了解 Material Design 引入的新控件，更不要说在项目中添加这样的设计了。</p>
-<p>匆匆，到了年底，手上痒得不行，就想把自己对 Material Design 的认识总结一下，和大家探讨，学习，共同去推进 Material Design 的广泛使用。</p>
-<p>从今天开始，以后每周的周五，我都会针对 Material Design  的一个技能点，从设计+技术角度解读，如何使用 Material Design，让你的项目更出色！</p>
-]]></content>
-    </entry>
-    
-    <entry>
       <title><![CDATA[ShareSDK集成分享功能中的一些坑]]></title>
       <url>https://sunnyxibei.github.io/2016/12/09/ShareSDK%E9%9B%86%E6%88%90%E5%88%86%E4%BA%AB%E5%8A%9F%E8%83%BD%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/</url>
       <content type="html"><![CDATA[<ul>

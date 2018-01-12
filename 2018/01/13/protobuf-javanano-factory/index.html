@@ -15,14 +15,14 @@ Protocol Buffers (a.k.a., protobuf) are Google’s language-neutral, platform-ne
 Protocol Buffer （又名，proto">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自定义Protocol Buffer javanano转换工厂">
-<meta property="og:url" content="https://sunnyxibei.github.io/2018/01/13/protobuf/index.html">
+<meta property="og:url" content="https://sunnyxibei.github.io/2018/01/13/protobuf-javanano-factory/index.html">
 <meta property="og:site_name" content="Android Baby">
 <meta property="og:description" content="首先介绍Protocol Buffer 和 javanao 的概念
 
 Protocol Buffers (a.k.a., protobuf) are Google’s language-neutral, platform-neutral, extensible mechanism for serializing structured data.
 
 Protocol Buffer （又名，proto">
-<meta property="og:updated_time" content="2018-01-12T16:05:32.145Z">
+<meta property="og:updated_time" content="2018-01-12T16:10:01.093Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自定义Protocol Buffer javanano转换工厂">
 <meta name="twitter:description" content="首先介绍Protocol Buffer 和 javanao 的概念
@@ -165,7 +165,7 @@ Protocol Buffer （又名，proto">
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-protobuf" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-protobuf-javanano-factory" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -177,7 +177,7 @@ Protocol Buffer （又名，proto">
   
 
         
-        <a href="/2018/01/13/protobuf/" class="archive-article-date">
+        <a href="/2018/01/13/protobuf-javanano-factory/" class="archive-article-date">
   	<time datetime="2018-01-12T16:02:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-13</time>
 </a>
         
@@ -194,6 +194,7 @@ Protocol Buffer （又名，proto">
 <p>JavaNano is a special code generator and runtime library designed specially for resource-restricted systems, like Android. It is very resource-friendly in both the amount of code and the runtime overhead. </p>
 </blockquote>
 <p>JavaNano是专门为资源受限系统（如Android）设计的特殊代码生成器和运行时库。 代码量和运行时开销都非常资源友好。</p>
+<a id="more"></a>
 <p>工作中接手的项目中，使用了Protocol Buffer javanano。查看编译生成的java类，会发现，javanano相比普通版本做了很大程度上的阉割，去掉了getter/setter方法、builder模式、Parser解析器。javanano直接解析并没有啥问题，而且很简单方便，但是，对于习惯了使用RxJava+Retrofit的我，使用工厂统一解析肯定是个硬性需求。所以问题来了，普通版本的转换工厂（com.squareup.retrofit2:converter-protobuf:2.3.0）是使用反射获取的Parser实例进行解析，javanano就使用不了，所以就有了这个自定义转换工厂。</p>
 <h3 id="创建工厂"><a href="#创建工厂" class="headerlink" title="创建工厂"></a>创建工厂</h3><p>工厂类包含对ResponseBody/RequestBody两种类型的转换。</p>
 <p>首先，是对ResponseBody响应消息的解析转换</p>
@@ -298,7 +299,7 @@ Protocol Buffer （又名，proto">
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=https://sunnyxibei.github.io/2018/01/13/protobuf/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://sunnyxibei.github.io/2018/01/13/protobuf-javanano-factory/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -440,15 +441,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Android7.0源码编译</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Protobuf Retrofit</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Android</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">HexoTest</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Android7.0源码编译</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -456,7 +457,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">HexoTest</a>
+                <a href="javascript:void(0)" class="js-tag color3">Protobuf Retrofit</a>
               </li>
             
             <div class="clearfix"></div>

@@ -154,6 +154,102 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-protobuf" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/13/protobuf/">自定义Protocol Buffer javanano转换工厂</a>
+    </h1>
+  
+
+        
+        <a href="/2018/01/13/protobuf/" class="archive-article-date">
+  	<time datetime="2018-01-12T16:02:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>首先介绍Protocol Buffer 和 javanao 的概念</p>
+<blockquote>
+<p>Protocol Buffers (a.k.a., protobuf) are Google’s language-neutral, platform-neutral, extensible mechanism for serializing structured data.</p>
+</blockquote>
+<p>Protocol Buffer （又名，protobuf）是 Google 提供的一种语言中立，平台中立，可扩展的序列化/结构化数据的机制。</p>
+<blockquote>
+<p>JavaNano is a special code generator and runtime library designed specially for resource-restricted systems, like Android. It is very resource-friendly in both the amount of code and the runtime overhead. </p>
+</blockquote>
+<p>JavaNano是专门为资源受限系统（如Android）设计的特殊代码生成器和运行时库。 代码量和运行时开销都非常资源友好。</p>
+<p>工作中接手的项目中，使用了Protocol Buffer javanano。查看编译生成的java类，会发现，javanano相比普通版本做了很大程度上的阉割，去掉了getter/setter方法、builder模式、Parser解析器。javanano直接解析并没有啥问题，而且很简单方便，但是，对于习惯了使用RxJava+Retrofit的我，使用工厂统一解析肯定是个硬性需求。所以问题来了，普通版本的转换工厂（com.squareup.retrofit2:converter-protobuf:2.3.0）是使用反射获取的Parser实例进行解析，javanano就使用不了，所以就有了这个自定义转换工厂。</p>
+<h3 id="创建工厂"><a href="#创建工厂" class="headerlink" title="创建工厂"></a>创建工厂</h3><p>工厂类包含对ResponseBody/RequestBody两种类型的转换。</p>
+<p>首先，是对ResponseBody响应消息的解析转换</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Converter&lt;ResponseBody, T&gt; <span class="title">responseBodyConverter</span><span class="params">(Type type, Annotation[] annotations, Retrofit retrofit)</span> </span>&#123;</span><br><span class="line">  		<span class="comment">//判断type是否是class</span></span><br><span class="line">        <span class="keyword">if</span> (!(type <span class="keyword">instanceof</span> Class&lt;?&gt;)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        Class&lt;?&gt; c = (Class&lt;?&gt;) type;</span><br><span class="line">  		<span class="comment">//判断type是否是MessageNano的实现类</span></span><br><span class="line">        <span class="keyword">if</span> (!MessageNano.class.isAssignableFrom(c)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">  		<span class="comment">//把c传递过去，以便在convert时创建T的实例</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ProtoNanoResponseBodyConverter&lt;&gt;(c);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>ResponseBody对应的转换器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">ProtoNanoResponseBodyConverter</span>&lt;<span class="title">T</span> <span class="keyword">extends</span> <span class="title">MessageNano</span>&gt;</span><br><span class="line">        <span class="keyword">implements</span> <span class="title">Converter</span>&lt;<span class="title">ResponseBody</span>, <span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Class&lt;?&gt; c;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ProtoNanoResponseBodyConverter</span><span class="params">(Class&lt;?&gt; c)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.c = c;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">convert</span><span class="params">(@NonNull ResponseBody value)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        T msg = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//noinspection unchecked</span></span><br><span class="line">            msg = (T) c.newInstance();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InstantiationException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">assert</span> msg != <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">//当然，最后还是使用mergeFrom方法，将Response中的字节写入上面创建的实例msg</span></span><br><span class="line">        <span class="keyword">return</span> T.mergeFrom(msg, value.bytes());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后是对RequestBody的转换，判断条件和ResponseBody相同</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Converter&lt;T, RequestBody&gt; <span class="title">requestBodyConverter</span></span><br><span class="line">            <span class="params">(Type type, Annotation[] parameterAnnotations,</span><br><span class="line">             Annotation[] methodAnnotations, Retrofit retrofit)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!(type <span class="keyword">instanceof</span> Class&lt;?&gt;)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!MessageNano.class.isAssignableFrom((Class&lt;?&gt;) type)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ProtoNanoRequestBodyConverter&lt;&gt;();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>ResponseBody对应的转换器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class ProtoNanoRequestBodyConverter&lt;T extends MessageNano&gt; implements Converter&lt;T, RequestBody&gt; &#123;</span><br><span class="line"></span><br><span class="line">    private static final MediaType MEDIA_TYPE = MediaType.parse(&quot;application/x-protobuf&quot;);</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public RequestBody convert(@NonNull T value) throws IOException &#123;</span><br><span class="line">    	//调用MessageNano的toByteArray转换成字节流</span><br><span class="line">        return RequestBody.create(MEDIA_TYPE, MessageNano.toByteArray(value));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="使用简介"><a href="#使用简介" class="headerlink" title="使用简介"></a>使用简介</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Retrofit retrofit = <span class="keyword">new</span> Retrofit.Builder()</span><br><span class="line">               .baseUrl(BASE_URL)</span><br><span class="line">               .client(client.build())</span><br><span class="line">               .addConverterFactory(ProtoNanoConverterFactory.create())</span><br><span class="line">               .addCallAdapterFactory(RxJavaCallAdapterFactory.create())</span><br><span class="line">               .build();</span><br></pre></td></tr></table></figure>
+<p>和所有工厂类的使用一样简单。</p>
+<h3 id="All-in-all"><a href="#All-in-all" class="headerlink" title="All in all"></a>All in all</h3><p>自定义工厂的过程非常简单，实质上只是对<code>T.mergeFrom(msg, value.bytes())</code>和<code>MessageNano.toByteArray(value)</code>的进一步封装，统一在创建retrofit对象的使用加入转换逻辑，不必每次在回调里再行处理。</p>
+<p><a href="https://github.com/sunnyxibei/ProtoNanoConverterFactory" target="_blank" rel="external">源码看这里</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Protobuf Retrofit</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/01/13/protobuf/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Android源码编译运行指南" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -523,7 +619,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2017 sunnyxibei
+    		&copy; 2018 sunnyxibei
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -606,11 +702,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Android</a>
+                <a href="javascript:void(0)" class="js-tag color5">Android7.0源码编译</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Android7.0源码编译</a>
+                <a href="javascript:void(0)" class="js-tag color3">Protobuf Retrofit</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Android</a>
               </li>
              
               <li class="article-tag-list-item">
